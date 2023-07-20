@@ -11,4 +11,5 @@
 - [수업자료가 있는 Github 링크 바로가기](https://github.com/BryantSon-Class/Week1-GitHub-Class-SKG/blob/hyeonjeongko-branch/excercises-gitflow/hyeonjeongko-branch.md)
 
 ### 화이팅입니다!
-![image](https://github.com/hyeonjeong-ko/git-assignment-1/assets/72601276/c61da3ca-df91-4771-82ec-77b1589a3505)
+![image](https://github.com/hyeonjeong-ko/skku-git-assignment-1/assets/72601276/26ccadef-4648-48ce-9320-76835fc2feaf)
+

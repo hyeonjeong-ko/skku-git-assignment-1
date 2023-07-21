@@ -13,3 +13,5 @@
 ### 화이팅입니다!
 ![image](https://github.com/hyeonjeong-ko/skku-git-assignment-1/assets/72601276/26ccadef-4648-48ce-9320-76835fc2feaf)
 
+### 열실히 하겠습니다!!! 🔥
+![image](https://kuku-keke.com/wp-content/uploads/2021/06/6634_5.png)

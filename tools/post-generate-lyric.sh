@@ -3,8 +3,6 @@
 FOLDER_GIT = .git
 README_FILE = 2nd-assignment.md
 
-git checkout sc-second-branch
-
 echo "나뭇가지에 실처럼" >> $README_FILE
 git add $README_FILE && git commit -m "강성철이 솜사탕 후반부 첫줄커밋"
 

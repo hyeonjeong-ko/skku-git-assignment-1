@@ -1,5 +1,7 @@
 #!/bin/bash
-#README_FILE = 2nd-assignment.md
+
+README_FILE = 2nd-assignment.md
+FOLDER_GIT=.git
 
 
 echo "나뭇가지에 실처럼" >> $README_FILE

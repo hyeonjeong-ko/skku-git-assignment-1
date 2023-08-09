@@ -1,0 +1,30 @@
+name: Check Python Files
+
+on:
+  push:
+    paths:
+      - '**/*.py'  # Watch for changes in .py files
+permissions:
+  contents: write
+jobs:
+  check-py:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Install dependencies
+      run: pip install flake8
+      
+    - name: Check Python files
+      run: |
+        FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.py')
+        for FILE in $FILES; do
+          flake8 $FILE
+          if [ $? -eq 0 ]; then
+            echo "문제가 없습니다 - $FILE"
+          else
+            echo "문제가 있습니다 - $FILE"
+          fi
+        done

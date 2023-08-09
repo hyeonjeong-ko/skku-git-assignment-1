@@ -11,12 +11,13 @@ jobs:
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v6
       
     - name: Add text to README
       run: |
-        echo "액션을 활용하여 이 줄을 추가합니다" >> readme.md
-        git config --local user.email "action@github.com"
+        echo "액션을 활용하여 이 줄을 추가합니다" >> README.md
+        git config --local user.email "2020311920"
         git config --local user.name "GitHub Action"
+        git add .
         git commit -a -m "Update README using GitHub Action"
         git push

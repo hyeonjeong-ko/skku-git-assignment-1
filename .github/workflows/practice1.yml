@@ -1,1 +1,26 @@
-///
+name: Add Comment on File Change
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  add-comment:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Check for file changes
+      id: check-changes
+      run: |
+        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.py')
+        echo "::set-output name=changed_files::$CHANGED_FILES"
+      
+    - name: Add comment if changes detected
+      if: steps.check-changes.outputs.changed_files != ''
+      run: |
+        COMMENT="일부 변경되었습니다."
+        echo "$COMMENT" | gh pr comment ${{ github.event.number }} --body -

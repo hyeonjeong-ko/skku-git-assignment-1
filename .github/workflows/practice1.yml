@@ -1,23 +1,17 @@
-name: Update README
+name: Simple Action
 
 on:
   push:
     branches:
-      - 'sc-4th-practice'
+      - '*'
 
 jobs:
-  update-readme:
+  simple-job:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
       
-    - name: Add text to README
-      run: |
-        echo "액션을 활용하여 이 줄을 추가합니다" >> README.md
-        git config --local user.email "2020311920"
-        git config --local user.name "GitHub Action"
-        git add .
-        git commit -a -m "Update README using GitHub Action"
-        git push
+    - name: Print a message
+      run: echo "Hello, this is a simple GitHub Action!"

@@ -16,6 +16,8 @@ jobs:
     - name: Add message to file
       run: |
         echo "gitAction을 활용하여 README.md파일에 한 줄 올립니다..." >> README.md
+        git config --global user.email "kangsc9335@gmail.com"
+        git config --global user.name "2020311920"
         git add .
         git commit -a -m "Add message using GitHub Action"
         git push

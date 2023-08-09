@@ -14,4 +14,4 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Add message to file
-      run: echo "Hello from GitHub Action!" >> my-file.txt
+      run: echo "Hello from GitHub Action!" >> README.md

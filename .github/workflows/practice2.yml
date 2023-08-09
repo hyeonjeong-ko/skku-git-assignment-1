@@ -1,0 +1,17 @@
+name: Add Message to File
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  add-message:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Add message to file
+      run: echo "Hello from GitHub Action!" >> my-file.txt

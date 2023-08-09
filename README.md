@@ -34,3 +34,4 @@
 ![image](https://github.com/hyeonjeong-ko/skku-git-assignment-1/assets/72601276/26ccadef-4648-48ce-9320-76835fc2feaf)
 
 
+gitAction을 활용하여 README.md파일에 한 줄 올립니다...

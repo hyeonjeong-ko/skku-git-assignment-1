@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - '*'
-
+permissions:
+  contents: write
 jobs:
   add-message:
     runs-on: ubuntu-latest

@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - sc-4th-practice
+      
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest

@@ -3,7 +3,7 @@ name: 4th--assignment
 on:
   push:
     branches:
-      - [hj-4th]
+      - hj-4th
 
 jobs:
   create_and_run_hello_world:

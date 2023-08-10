@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - hj-4th
+permissions:
+  contents: write
 
 jobs:
   create_and_run_hello_world:

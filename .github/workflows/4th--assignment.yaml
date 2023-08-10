@@ -26,6 +26,8 @@ jobs:
       
     - name: Add and commit changes
       run: |
+        git config --global user.email "toyu7870@naver.com"
+        git config --global user.name "hyeonkjjang"
         git add hello_world.py
         git commit -m "Add hello_world.py"
         git push origin hj-new-branch

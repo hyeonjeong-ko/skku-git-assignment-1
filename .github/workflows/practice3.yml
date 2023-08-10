@@ -3,8 +3,7 @@ name: Translate README
 on:
   push:
     branches:
-      - main
-      - master
+      - sc-4th-practice
 jobs:
   build:
     runs-on: ubuntu-latest

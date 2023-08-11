@@ -1,6 +1,6 @@
 # Final Project Ideas
 
-## Idea 1: 현정 💻 chatGPT와 영어회화 연습하기
+## 현정 💻 Idea 1: chatGPT와 영어회화 연습하기
 
 ### 제출 형식: 깃허브 액션
 
@@ -15,7 +15,7 @@
 - Text To Speech API (예: )
 - etc...
 
-## Idea 2: 성철 📱 slack alarm service
+## 성철 📱 Idea : slack alarm service
 
 ### 제출 형식: 깃허브 액션
 

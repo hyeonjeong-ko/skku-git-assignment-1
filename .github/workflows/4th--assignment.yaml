@@ -1,0 +1,38 @@
+name: 4th--assignment
+
+on:
+  push:
+    branches:
+      - hj-4th
+permissions:
+  contents: write
+
+jobs:
+  create_and_run_hello_world:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    
+    - name: Create new branch
+      run: git checkout -b hj-new-branch
+    
+    - name: Create hello_world.py
+      run: echo "print('github action is fun!!!!!!!!')" > hello_world.py
+      
+    - name: Add and commit changes
+      run: |
+        git config --global user.email "toyu7870@naver.com"
+        git config --global user.name "hyeonkjjang"
+        git add hello_world.py
+        git commit -m "Add hello_world.py"
+        git push origin hj-new-branch
+    
+    - name: Run hello_world.py
+      run: python hello_world.py

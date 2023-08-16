@@ -6,6 +6,7 @@ on:
       - main
   push:
     branches:
+      - sc-4th-pracice #profile.md가 업뎃 되기는 하는지 확인용용
       - main
 
 permissions:
@@ -80,19 +81,9 @@ jobs:
           git config --global user.email "actions@github.com"
           git add profile.md
           git commit -m "Update user profile"
-
-      - name: Clone Repository
-        if: github.event_name == 'push'
-        run: |
-          git clone https://github.com/hyeonjeong-ko/skku-git-assignment-1.git skku-git-assignment-1
-          cd skku-git-assignment-1
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git checkout main
-          cp ../profile.md .
-          git add profile.md
-          git commit -m "Update user profile"
           git push
+
+      
 
       
 

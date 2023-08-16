@@ -1,0 +1,89 @@
+name: Update User Profile_ver2
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - sc-4th-pracice #profile.md가 업뎃 되기는 하는지 확인용용
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  update_profile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      # Install dependencies for both cases
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run kakaotalkAlarm.py on pull request
+        if: github.event_name == 'pull_request'
+        run: python .github/workflows/kakaotalkAlarm.py
+
+      - name: Run kakaotalkAlarm.py on push
+        if: github.event_name == 'push'
+        run: python .github/workflows/kakaotalkAlarm2.py
+
+
+      - name: Set User Information
+        if: github.event_name == 'push'
+        id: user_info
+        run: |
+          USER_NAME=$(git log -1 --pretty=format:'%an')
+          COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
+          COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
+          echo "::set-output name=user_name::$USER_NAME"
+          echo "::set-output name=commit_time::$COMMIT_TIME"
+          echo "::set-output name=commit_message::$COMMIT_MESSAGE"
+
+      - name: Read Existing Profile Content
+        if: github.event_name == 'push'
+        id: read_existing
+        run: |
+          if [ -f "profile.md" ]; then
+            EXISTING_CONTENT=$(cat profile.md)
+            echo "::set-output name=existing_content::$EXISTING_CONTENT"
+          else
+            echo "::set-output name=existing_content::"
+          fi
+
+      - name: Update Markdown File on push
+        if: github.event_name == 'push'
+        run: |
+          echo "::set-output name=new_content::" >> profile.md
+          echo "## User Profile" >> profile.md
+          echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
+          echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
+          echo "- Commit Message: ${{ steps.user_info.outputs.commit_message }}" >> profile.md
+          echo "" >> profile.md
+          echo "${{ steps.read_existing.outputs.existing_content }}" >> profile.md
+          echo "${{ steps.new_content.outputs.new_content }}" >> profile.md
+
+      - name: Commit and Push Changes on push
+        if: github.event_name == 'push'
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add profile.md
+          git commit -m "Update user profile"
+          git push
+
+      
+
+      
+

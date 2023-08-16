@@ -26,6 +26,15 @@ jobs:
           echo "::set-output name=user_name::$USER_NAME"
           echo "::set-output name=commit_time::$COMMIT_TIME"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
+      - name: Read Existing Profile Content
+        id: read_existing
+        run: |
+          if [ -f "profile.md" ]; then
+            EXISTING_CONTENT=$(cat profile.md)
+            echo "::set-output name=existing_content::$EXISTING_CONTENT"
+          else
+            echo "::set-output name=existing_content::"
+          fi
 
       - name: Update Markdown File
         run: |

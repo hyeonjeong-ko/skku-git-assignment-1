@@ -9,9 +9,35 @@ jobs:
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
-
-    - name: Set Environment Variable
-      run: echo "MY_ENV_VAR=hihi" >> $GITHUB_ENV
+    
+    - name: Set User Information
+      if: github.event_name == 'push'
+      id: user_info
+      run: |
+        USER_NAME=$(git log -1 --pretty=format:'%an')
+        COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
+        COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
+        echo "::set-output name=user_name::$USER_NAME"
+        echo "::set-output name=commit_time::$COMMIT_TIME"
+        echo "::set-output name=commit_message::$COMMIT_MESSAGE"
 
     - name: Run Python Script
       run: python .github/workflows/my_script.py
+
+# name: 파이썬코드변수저장되나요
+
+# on: [push]
+
+# jobs:
+#   my_job:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout Repository
+#       uses: actions/checkout@v2
+
+#     - name: Set Environment Variable
+#       run: echo "MY_ENV_VAR=hihi" >> $GITHUB_ENV
+
+#     - name: Run Python Script
+#       run: python .github/workflows/my_script.py

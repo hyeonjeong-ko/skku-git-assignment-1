@@ -26,22 +26,28 @@ jobs:
           echo "::set-output name=user_name::$USER_NAME"
           echo "::set-output name=commit_time::$COMMIT_TIME"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
-      - name: Read Existing Profile Content
-        id: read_existing
+
+      - name: Check if profile.md exists
+        id: check_profile
         run: |
           if [ -f "profile.md" ]; then
-            EXISTING_CONTENT=$(cat profile.md)
-            echo "::set-output name=existing_content::$EXISTING_CONTENT"
+            echo "::set-output name=profile_exists::true"
           else
-            echo "::set-output name=existing_content::"
+            echo "::set-output name=profile_exists::false"
           fi
 
-      - name: Update Markdown File
+      - name: Update or Create Markdown File
         run: |
-          echo "## User Profile" > profile.md
-          echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
-          echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
-          echo "- Commit Message: ${{ steps.user_info.outputs.commit_message }}" >> profile.md
+          if [ ${{ steps.check_profile.outputs.profile_exists }} == "true" ]; then
+            echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
+            echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
+            echo "- Commit Message: ${{ steps.user_info.outputs.commit_message }}" >> profile.md
+          else
+            echo "## User Profile" > profile.md
+            echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
+            echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
+            echo "- Commit Message: ${{ steps.user_info.outputs.commit_message }}" >> profile.md
+          fi
 
       - name: Commit and Push Changes
         run: |

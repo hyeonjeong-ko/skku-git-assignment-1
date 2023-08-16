@@ -27,27 +27,12 @@ jobs:
           echo "::set-output name=commit_time::$COMMIT_TIME"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
 
-      - name: Check if profile.md exists
-        id: check_profile
+      - name: Update Markdown File
         run: |
-          if [ -f "profile.md" ]; then
-            echo "::set-output name=profile_exists::true"
-          else
-            echo "::set-output name=profile_exists::false"
-          fi
-
-      - name: Update or Create Markdown File
-        run: |
-          if [ ${{ steps.check_profile.outputs.profile_exists }} == "true" ]; then
-            echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
-            echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
-            echo "- Commit Message: ${{ steps.user_info.outputs.commit_message }}" >> profile.md
-          else
-            echo "## User Profile" > profile.md
-            echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
-            echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
-            echo "- Commit Message: ${{ steps.user_info.outputs.commit_message }}" >> profile.md
-          fi
+          echo "## User Profile" > profile.md
+          echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
+          echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
+          echo "- Commit Message: ${{ steps.user_info.outputs.commit_message }}" >> profile.md
 
       - name: Commit and Push Changes
         run: |
@@ -56,13 +41,3 @@ jobs:
           git add profile.md
           git commit -m "Update user profile"
           git push
-
-지금 이 상태로 main으로 pull request를 했더니 아래와 같은 오류가 떴어. 해결해줘
-
-fatal: You are not currently on a branch.
-To push the history leading to the current (detached HEAD)
-state now, use
-
-    git push origin HEAD:<name-of-remote-branch>
-
-Error: Process completed with exit code 128.

@@ -6,7 +6,7 @@ on:
       - main
   push:
     branches:
-      - sc-4th-practice  # 원하는 브랜치로 변경
+      - sc-5th-test  # 원하는 브랜치로 변경
 permissions:
   contents: write
 jobs:

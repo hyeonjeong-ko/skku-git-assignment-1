@@ -1,4 +1,4 @@
-name: Push할때 Pull Request작동되나요~?
+name: Push할때 Pull Request작동되나요~??
 on: push
 
 jobs:

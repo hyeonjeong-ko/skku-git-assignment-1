@@ -11,17 +11,11 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Variables
-      id: variables
-      uses: simenandre/setup-variables@v2
-      with:
-        key: ${{ github.repository_owner }}
-        map: |
-          octocat: Octocat
-          otheruser: Other User
-          '*': Unknown
-
-    - name: Print Owner Mapping
-      run: echo "Mapped owner: ${{ steps.variables.outputs.mapped_value }}"
+    - uses: marcdomain/set-variables@v1
+        with:
+          variables: |
+            ENVIRONMENT: "${{ github.ref }}" == "refs/heads/main" ? "production" : "staging"
+            USERNAME: 1 > 2 ? "John" : "Doe"
 
     - name: Run Python Script
       run: python my_script.py

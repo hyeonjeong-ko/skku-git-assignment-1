@@ -1,20 +1,16 @@
 name: Push할때 Pull Request작동되나요~?
-
-on:
-  schedule:
-    - cron: '* * * * *'
+on: push
 
 jobs:
-  update:
+  create-pr-on-push:
     runs-on: ubuntu-latest
     steps:
-      # Do something ex. yarn install and execute get some file.
-      - name: Commit push and pr
-        uses: golfzaptw/action-commit-push-pr@1.0.2
-        with:
-          GITHUB_TOKEN: ${{secrets.TOKEN}}
-          PREFIX_BRANCHES: 'hj-4th'
-          DEFAULT_BRANCHES: 'main'
-          COMMIT_MESSAGE: 'update value'
-          TITLE_PR: 'Chore: get some file update'
-          BODY_PR: ''
+    - uses: actions/checkout@1.0.0
+    
+    - name: Create pull request
+      uses: thomaseizinger/create-pull-request@master
+      with:
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        head: ${{ github.ref }}
+        base: main
+        title: "An automatically created PR!"

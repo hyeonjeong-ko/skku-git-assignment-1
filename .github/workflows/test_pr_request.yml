@@ -7,8 +7,10 @@ on:
   push:
     branches:
       - hj-4th  # 원하는 브랜치로 변경
+
 permissions:
   contents: write
+
 jobs:
   update_profile:
     runs-on: ubuntu-latest  # 원하는 실행 환경으로 변경
@@ -56,3 +58,24 @@ jobs:
           git add profile.md
           git commit -m "Update user profile"
           git push
+
+      - name: Create Pull Request Comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: pullRequest } = await github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            const message = `User ID or Nickname: ${{ steps.user_info.outputs.user_name }}\nCommit Time: ${{ steps.user_info.outputs.commit_time }}\nCommit Message: ${{ steps.user_info.outputs.commit_message }}`;
+
+            await github.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: message
+            });

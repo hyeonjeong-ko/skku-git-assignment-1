@@ -27,6 +27,14 @@ jobs:
           echo "::set-output name=commit_time::$COMMIT_TIME"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
 
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Run kakaotalkAlarm.py
+        run: python kakaotalkAlarm.py
+
       - name: Read Existing Profile Content
         id: read_existing
         run: |

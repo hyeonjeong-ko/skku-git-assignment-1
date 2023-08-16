@@ -10,12 +10,11 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up Variables
-    - uses: marcdomain/set-variables@v1
-        with:
-          variables: |
-            ENVIRONMENT: "${{ github.ref }}" == "refs/heads/main" ? "production" : "staging"
-            USERNAME: 1 > 2 ? "John" : "Doe"
-
+    - name: Set Environment Variable
+      run: echo "MY_ENV_VAR=my_value" >> $GITHUB_ENV
+      
     - name: Run Python Script
       run: python my_script.py
+
+    - name: Run Python Script
+      run: python .github/workflows/my_script.py

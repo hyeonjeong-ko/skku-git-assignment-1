@@ -27,12 +27,26 @@ jobs:
           echo "::set-output name=commit_time::$COMMIT_TIME"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
 
+      - name: Read Existing Profile Content
+        id: read_existing
+        run: |
+          if [ -f "profile.md" ]; then
+            EXISTING_CONTENT=$(cat profile.md)
+            echo "::set-output name=existing_content::$EXISTING_CONTENT"
+          else
+            echo "::set-output name=existing_content::"
+          fi
+
       - name: Update Markdown File
         run: |
-          echo "## User Profile" > profile.md
+          echo "::set-output name=new_content::" >> profile.md
+          echo "## User Profile" >> profile.md
           echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
           echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
           echo "- Commit Message: ${{ steps.user_info.outputs.commit_message }}" >> profile.md
+          echo "" >> profile.md
+          echo "${{ steps.read_existing.outputs.existing_content }}" >> profile.md
+          echo "${{ steps.new_content.outputs.new_content }}" >> profile.md
 
       - name: Commit and Push Changes
         run: |

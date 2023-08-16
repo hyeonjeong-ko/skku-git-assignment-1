@@ -144,3 +144,11 @@
 
 
 
+::set-output name=new_content::
+## User Profile
+- User ID or Nickname: hyeonjeong-ko
+- Commit Time: 2023-08-17 02:45:59 +0900
+- Commit Message: Update and rename 파이썬코드변수저장되나요.yml to 파이썬코드에 사용할 변수저장
+
+
+

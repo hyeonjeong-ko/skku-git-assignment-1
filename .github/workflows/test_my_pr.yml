@@ -1,12 +1,10 @@
-name: Pull Request 액션
+name: Push할때 Pull Request작동되나요~?
 
 on:
   push:
     branches:
       - hj-4th
       - main
-    types:
-      - opened
 
 jobs:
   my-action:

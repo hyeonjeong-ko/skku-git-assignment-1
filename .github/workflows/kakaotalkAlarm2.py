@@ -48,7 +48,7 @@ data={
     'receiver_uuids': '["{}"]'.format(friend_id),
     "template_object": json.dumps({
         "object_type":"text",
-        "text":"(테스트 중입니다. 무시해주세용)merge 후에 profile.md가 업데이트됐어요!!",
+        "text":"merge 후에 profile.md가 업데이트됐어요!!",
         "link":{
             "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
             "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"

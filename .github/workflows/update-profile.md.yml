@@ -17,6 +17,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Run kakaotalkAlarm.py
+        run: python ./kakaotalkAlarm.py
+
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
       - name: Set User Information
         id: user_info
         run: |
@@ -26,14 +37,6 @@ jobs:
           echo "::set-output name=user_name::$USER_NAME"
           echo "::set-output name=commit_time::$COMMIT_TIME"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-
-      - name: Run kakaotalkAlarm.py
-        run: python ./kakaotalkAlarm.py
 
       - name: Read Existing Profile Content
         id: read_existing

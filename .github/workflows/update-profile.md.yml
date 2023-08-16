@@ -68,7 +68,7 @@ jobs:
         
           # echo "::set-output name=new_content::" >> profile.md
           echo "## User Profile" >> profile.md
-          echo "'${{ steps.user_info.outputs.user_name }}'가 '${{ steps.user_info.outputs.commit_time }}'에 '${{ steps.user_info.outputs.commit_message }}'로 머지 하였음을 기록합니다">>profile.md 
+          echo "'${{ steps.user_info.outputs.user_name }}'가 '${{ steps.user_info.outputs.commit_time }}'에 '${{ steps.user_info.outputs.commit_message }}'로 merge 하였음을 기록합니다">>profile.md 
         
           # echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
           # echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md

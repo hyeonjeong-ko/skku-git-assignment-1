@@ -55,7 +55,7 @@ data={
     "template_object": json.dumps({
         "object_type":"text",
         #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
-        "text":f"{user_name}가 {commit_time}에 {commit_message}로 merge 하였음을 기록합니다",
+        "text":f"{user_name}(이)가 {commit_time}에 '{commit_message}'라는 message와 함께 pull_request를 요청했어요!",
         "link":{
             "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
             "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"

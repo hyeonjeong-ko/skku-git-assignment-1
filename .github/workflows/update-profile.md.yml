@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - sc-4th-practice  # 원하는 브랜치로 변경
+      - main
 permissions:
   contents: write
 jobs:

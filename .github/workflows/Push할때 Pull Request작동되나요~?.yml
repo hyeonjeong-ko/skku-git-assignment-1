@@ -12,7 +12,7 @@ jobs:
       - name: Commit push and pr
         uses: golfzaptw/action-commit-push-pr@1.0.2
         with:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.TOKEN}}
           PREFIX_BRANCHES: 'hj-4th'
           DEFAULT_BRANCHES: 'main'
           COMMIT_MESSAGE: 'update value'

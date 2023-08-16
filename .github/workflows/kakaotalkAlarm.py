@@ -48,7 +48,8 @@ data={
     'receiver_uuids': '["{}"]'.format(friend_id),
     "template_object": json.dumps({
         "object_type":"text",
-        "text":"pull request요청이 왔어요!! 리뷰해주세요!!",
+        #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
+        "text":"(테스트 중입니다. 무시해주세용)pull request요청이 왔어요!! 리뷰해주세요!!",
         "link":{
             "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
             "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"

@@ -20,3 +20,8 @@
 
 
 
+## User Profile
+'2020311920'가 '2023-08-17 01:57:31 +0900'에 'Update kakaotalkAlarm2.py'로 merge 하였음을 기록합니다
+
+
+

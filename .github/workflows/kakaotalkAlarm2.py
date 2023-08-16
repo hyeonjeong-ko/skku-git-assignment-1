@@ -8,7 +8,7 @@ data = {
     "grant_type" : "authorization_code",
     "client_id" : "152831f2d43d3d3c3b003a24ec2fa088",
     "redirect_url" : "https://localhost:3000",
-    "code" : "GA-XbIJWU-98ITZ0jTWcpuHuka257nf0yz6QK0kKdjrt_0T341E12eEnNPZlusN5eUVg2go9dJcAAAGJ_oLEWA"
+    "code" : "2aiAUbuYgDNIZyFAzdoQrY5Lgr9w2s-lKkyEJ0dhd2yz5B_V4uW84iSe3Mico8FYhCqwZgopyNgAAAGJ_1Eahw"
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -19,7 +19,7 @@ url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type": "refresh_token",
     "client_id": "152831f2d43d3d3c3b003a24ec2fa088",
-    "refresh_token": "b56UXEk_9_iADkrucCElSm4datx10Xzok9SauGAwCisNIAAAAYn-gwKG"
+    "refresh_token": "KetPErJV5S9HBHPZHN7NeWXVhm3LSPmxh3yy32VNCj10mAAAAYn_UdOS"
 }
 response = requests.post(url, data=data)
 tokens = response.json()

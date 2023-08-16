@@ -1,0 +1,27 @@
+name: 파이썬코드변수저장되나요
+
+on: [push]
+
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Variables
+      id: variables
+      uses: simenandre/setup-variables@v2
+      with:
+        key: ${{ github.repository_owner }}
+        map: |
+          octocat: Octocat
+          otheruser: Other User
+          '*': Unknown
+
+    - name: Print Owner Mapping
+      run: echo "Mapped owner: ${{ steps.variables.outputs.mapped_value }}"
+
+    - name: Run Python Script
+      run: python my_script.py

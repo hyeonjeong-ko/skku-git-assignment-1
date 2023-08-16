@@ -8,7 +8,7 @@ data = {
     "grant_type" : "authorization_code",
     "client_id" : "152831f2d43d3d3c3b003a24ec2fa088",
     "redirect_url" : "https://localhost:3000",
-    "code" : "G7tIxp7QQW7uBrLEb8bSABLeHH3FRL9AwakSnmGL5WI8W--A8Dj1hvE1qlrV8MnbUc3gUQo9dNoAAAGJ_hZm_w"
+    "code" : "GA-XbIJWU-98ITZ0jTWcpuHuka257nf0yz6QK0kKdjrt_0T341E12eEnNPZlusN5eUVg2go9dJcAAAGJ_oLEWA"
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -19,7 +19,7 @@ url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type": "refresh_token",
     "client_id": "152831f2d43d3d3c3b003a24ec2fa088",
-    "refresh_token": "tyeCXX8Gj6UvEO7cqzkyiiGmO8xapwcqZPUpBwT4CiolkAAAAYn-Frtj"
+    "refresh_token": "b56UXEk_9_iADkrucCElSm4datx10Xzok9SauGAwCisNIAAAAYn-gwKG"
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -38,10 +38,8 @@ result = json.loads(requests.get(url, headers=header).text)
 friends_list = result.get("elements")
 print(friends_list)
 
-
 friend_id = friends_list[0].get("uuid")
 print(friend_id)
-
 
 # 카카오톡 메시지
 url= "https://kapi.kakao.com/v1/api/talk/friends/message/default/send"

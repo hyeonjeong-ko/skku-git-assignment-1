@@ -33,7 +33,7 @@ jobs:
           python-version: 3.9
 
       - name: Run kakaotalkAlarm.py
-        run: python kakaotalkAlarm.py
+        run: python ./kakaotalkAlarm.py
 
       - name: Read Existing Profile Content
         id: read_existing

@@ -1,6 +1,7 @@
 import os
 
-# Get the mapped owner value from the workflow's outputs
-mapped_owner = os.environ['MAPPED_OWNER']
+# Get the value of the environment variable
+my_env_var = os.environ.get('MY_ENV_VAR')
 
-print("Mapped Owner:", mapped_owner)
+# Use the environment variable value
+print("Value of MY_ENV_VAR:", my_env_var)

@@ -32,3 +32,11 @@
 
 
 
+::set-output name=new_content::
+## User Profile
+- User ID or Nickname: hyeonjeong-ko
+- Commit Time: 2023-08-17 01:38:00 +0900
+- Commit Message: Update test_my_pr.yml
+
+
+

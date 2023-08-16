@@ -1,0 +1,22 @@
+name: Pull Request Logger
+
+on:
+  pull_request:
+    types:
+      - opened
+      - closed
+      - reopened
+
+jobs:
+  log_pull_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Log pull request"
+        uses: heinrichreimer/action-github-pull-request-logger@v1.2.0
+        with:
+          pull_request_url: ${{ github.event.pull_request.url }}
+          file_name: .github/pull_requests.log
+
+      - name: "Write log"
+        run: |
+          echo "Pull request #${{ github.event.pull_request.number }} has been ${{ github.event.action }} by ${{ github.event.pull_request.user.login }} at ${{ github.event.created_at }}." >> .github/pull_requests.log

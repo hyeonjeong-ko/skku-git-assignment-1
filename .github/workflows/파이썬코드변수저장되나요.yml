@@ -12,9 +12,6 @@ jobs:
 
     - name: Set Environment Variable
       run: echo "MY_ENV_VAR=my_value" >> $GITHUB_ENV
-      
-    - name: Run Python Script
-      run: python my_script.py
 
     - name: Run Python Script
       run: python .github/workflows/my_script.py

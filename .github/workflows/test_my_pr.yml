@@ -5,20 +5,16 @@ on:
     - cron: '* * * * *'
 
 jobs:
-  my-action:
+  update:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 체크아웃 소스 코드
-        uses: actions/checkout@v2
-
-      # Create Pull Request using the golfzaptw/action-commit-push-pr action
+      # Do something ex. yarn install and execute get some file.
       - name: Commit push and pr
         uses: golfzaptw/action-commit-push-pr@1.0.2
         with:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           PREFIX_BRANCHES: 'hj-4th'
           DEFAULT_BRANCHES: 'main'
-          COMMIT_MESSAGE: 'Update user profile'
-          TITLE_PR: "Update User Profile by ${{ github.actor }}"
-          BODY_PR: "This is an automated pull request to update the user profile."
+          COMMIT_MESSAGE: 'update value'
+          TITLE_PR: 'Chore: get some file update'
+          BODY_PR: ''

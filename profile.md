@@ -8,3 +8,6 @@
 - User ID or Nickname: hyeonjeong-ko
 - Commit Time: 2023-08-16 21:11:37 +0900
 - Commit Message: 911-Update update-profile.md.yml
+- User ID or Nickname: 2020311920
+- Commit Time: 2023-08-16 21:17:02 +0900
+- Commit Message: Delete sc-githubAss-4.yml

@@ -1,6 +1,9 @@
 name: Update User Profile
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - sc-4th-practice  # 원하는 브랜치로 변경

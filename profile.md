@@ -128,3 +128,11 @@
 
 
 
+::set-output name=new_content::
+## User Profile
+- User ID or Nickname: hyeonjeong-ko
+- Commit Time: 2023-08-17 02:43:17 +0900
+- Commit Message: Update my_script.py
+
+
+

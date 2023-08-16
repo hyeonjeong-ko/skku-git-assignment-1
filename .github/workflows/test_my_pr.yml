@@ -2,6 +2,9 @@ name: Pull Request 액션
 
 on:
   pull_request:
+    branches:
+      - hj-4th
+      - main
     types:
       - opened
 
@@ -15,6 +18,6 @@ jobs:
 
       - name: 액션 실행
         run: |
-          echo "새로운 Pull Request가 생성되었습니다!"
+          echo "새로운 Pull Request가 hj-4th 브랜치에서 main 브랜치로 생성되었습니다!"
           echo "PR 제목: ${{ github.event.pull_request.title }}"
           echo "PR 작성자: ${{ github.event.pull_request.user.login }}"

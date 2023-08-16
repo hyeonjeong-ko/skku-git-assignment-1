@@ -48,12 +48,12 @@ data={
     'receiver_uuids': '["{}"]'.format(friend_id),
     "template_object": json.dumps({
         "object_type":"text",
-        "text":"고현정 테스트~~!하이!",
+        "text":"pull request요청이 왔어요!! 리뷰해주세요!!",
         "link":{
-            "web_url" : "https://www.google.co.kr/search?q=deep+learning&source=lnms&tbm=nws",
-            "mobile_web_url" : "https://www.google.co.kr/search?q=deep+learning&source=lnms&tbm=nws"
+            "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+            "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
         },
-        "button_title": "뉴스 보기"
+        "button_title": "깃허브로 가기!!"
     })
 }
 response = requests.post(url, headers=header, data=data)

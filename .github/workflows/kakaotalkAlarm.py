@@ -44,12 +44,18 @@ print(friend_id)
 # 카카오톡 메시지
 url= "https://kapi.kakao.com/v1/api/talk/friends/message/default/send"
 header = {"Authorization": 'Bearer ' + tokens["access_token"]}
+
+# Git Action에서 받은 정보를 사용하여 메시지 내용 구성
+user_name = "'${{ steps.user_info.outputs.user_name }}'"
+commit_time = "'${{ steps.user_info.outputs.commit_time }}'"
+commit_message = "'${{ steps.user_info.outputs.commit_message }}'"
+
 data={
     'receiver_uuids': '["{}"]'.format(friend_id),
     "template_object": json.dumps({
         "object_type":"text",
         #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
-        "text":"pull request요청이 왔어요!! 리뷰해주세요!!",
+        "text":f"{user_name}가 {commit_time}에 {commit_message}로 merge 하였음을 기록합니다",
         "link":{
             "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
             "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"

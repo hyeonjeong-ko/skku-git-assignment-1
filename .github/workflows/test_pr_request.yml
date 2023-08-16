@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - sc-4th-practice
   push:
     branches:
       - hj-4th  # 원하는 브랜치로 변경

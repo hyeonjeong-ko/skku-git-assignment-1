@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - sc-4th-practice  # 원하는 브랜치로 변경
-
+permissions:
+  contents: write
 jobs:
   update_profile:
     runs-on: ubuntu-latest  # 원하는 실행 환경으로 변경

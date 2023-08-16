@@ -20,7 +20,7 @@ jobs:
       - name: Set User Information
         id: user_info
         run: |
-          USER_NAME=$(python get_username.py)
+          USER_NAME=$(git log -1 --pretty=format:'%an')
           COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
           COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
           echo "::set-output name=user_name::$USER_NAME"

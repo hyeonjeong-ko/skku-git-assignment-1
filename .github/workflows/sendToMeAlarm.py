@@ -1,13 +1,13 @@
 import requests
 import json
 import os
-# 카카오톡 메시지 API
+# 카카오톡 메시지 API 입니다 !!
 url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type" : "authorization_code",
-    "client_id" : "152831f2d43d3d3c3b003a24ec2fa088",
-    "redirect_url" : "https://localhost:3000",
-    "code" : "-nimEXsni1ON7FWibwRrxuoFhk94n2jDewgY9lCcXFoXNjqhpMOCk3OTVAynlVA5ZGe8jQo9dJcAAAGKASweug"
+    "client_id" : "152831f2d43d3d3c3b003a24ec2fa088", # {restapi}
+    "redirect_url" : "https://localhost:3000", 
+    "code" : "RdowTz42p3dMCoHaq7nsuaOH__uy1ccD167oMrf2Iiut6Vs8BX86udCcrOCbJUWyguFPCQo9dGkAAAGKA0_kCg" # {code}
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -19,7 +19,7 @@ with open("kakao_code.json", "w") as fp:
 
 url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
 headers = {
-    "Authorization": "Bearer " + "j2n-z7QYj1dNW8acGxnyWi9AC4DNeYTmFshMHQ9TCj102QAAAYoBLb1Y"
+    "Authorization": "Bearer " + "7vViHL-6obGtf8vUweE36TkTC-TRhOcjLBQECN87CisM0wAAAYoDUD4j" # {access token}
 }
 
 # Get user information from environment variables
@@ -27,15 +27,28 @@ user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
 
+
 # Print the user information
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
 print("Commit Message:", commit_message)
 
+
+# 환경 변수 불러오기
+origin_branch = os.environ.get('ORIGIN_BRANCH')
+branch_name = os.environ.get('BRANCH_NAME')
+
+# 환경 변수 출력
+print(f"User Name: {user_name}")
+print(f"Origin Branch: {origin_branch}")
+print(f"Branch Name: {branch_name}")
+
+
+
+
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{user_name}이 {commit_time}에 {commit_message} 라고 합니다",
-                                     #"text" : "흠...",
+                                     "text" : f" ●pull request {branch_name} to main sendTomeAlarm파일", # {user_name} : {commit_message} -{commit_time}
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",
                                                  "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"

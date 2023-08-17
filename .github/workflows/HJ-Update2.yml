@@ -1,13 +1,15 @@
-name: Update User Profile_ver2
+name: Update User Profile_ver22
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
     branches:
-      - sc-main
+      - '*'
   push:
     branches:
-      #- sc-finalPro-finalBranch #profile.md가 업뎃 되기는 하는지 확인용용
-      - sc-main
+      - 'sc-main'
 
 permissions:
   contents: write
@@ -19,6 +21,30 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+          
+
+      # Install dependencies for both cases
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Set Event Name
+        id: set_event_name
+        run: |
+          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
+            echo "EVENT_NAME=Pull Request" >> $GITHUB_ENV
+            echo "MERGED_STATUS=${{ github.event.pull_request.merged }}" >> $GITHUB_ENV
+          elif [[ ${{ github.event_name }} == 'push' ]]; then
+            echo "EVENT_NAME=Push" >> $GITHUB_ENV
+          elif [[ ${{ github.event_name }} == 'workflow_run' ]]; then
+            echo "EVENT_NAME=Workflow Run" >> $GITHUB_ENV
+          fi
 
       - name: Set User Information
         #if: github.event_name == 'push'
@@ -65,26 +91,22 @@ jobs:
           git add profile.md
           git commit -m "Update user profile"
           git push
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-
-      # Install dependencies for both cases
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
-
-      - name: Run kakaotalkAlarm.py on pull request
-        if: github.event_name == 'pull_request'
-        #run: python .github/workflows/kakaotalkAlarm.py
-        run: python .github/workflows/sendToMeAlarm.py
-
-      - name: Run kakaotalkAlarm.py on push
-        if: github.event_name == 'push'
-        #run: python .github/workflows/kakaotalkAlarm2.py
-        run: python .github/workflows/sendToMeAlarm.py
       
+      - name: Run kakaotalkAlarm.py
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        #run: python .github/workflows/sendToMeAlarm.py
+        run: python .github/workflows/kakaotalkAlarm.py
+        
 
+
+
+
+      # - name: Run kakaotalkAlarm.py on pull request
+      #   if: github.event_name == 'pull_request'
+      #   #run: python .github/workflows/kakaotalkAlarm.py
+      #   run: python .github/workflows/sendToMeAlarm.py
+
+      # - name: Run kakaotalkAlarm.py on push
+      #   if: github.event_name == 'push'
+      #   run: python .github/workflows/sendToMeAlarm.py
+    

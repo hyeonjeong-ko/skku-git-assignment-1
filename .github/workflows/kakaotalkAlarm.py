@@ -1,6 +1,23 @@
 # 라이브러리 호출
+import os
 import requests
 import json
+
+event_name = os.environ.get('EVENT_NAME')
+merged_status = os.environ.get('MERGED_STATUS')
+
+if event_name == 'Pull Request':
+    if merged_status == 'true':
+        print("This is a merged Pull Request.")
+        event_name = 'Merge'
+    else:
+        print("This is an open Pull Request.")
+elif event_name == 'Push':
+    print("This is a Push event.")
+else:
+    print("Event type:", event_name)
+
+
 
 # 카카오톡 메시지 API
 url = "https://kauth.kakao.com/oauth/token"
@@ -8,7 +25,7 @@ data = {
     "grant_type" : "authorization_code",
     "client_id" : "152831f2d43d3d3c3b003a24ec2fa088",
     "redirect_url" : "https://localhost:3000",
-    "code" : "QafJ7dHcgaG7U9ha0n89SJiqweTZVGR6owuJBafh2dvds1gH0ONwG4FkZByoSmP5QmslRAorDKgAAAGJ_1r6HA"
+    "code" : "S9Ds94R43DJfMfNYXmofOZsELBgdo8JMlVUpf0YXm74v6eLCXz_W3oK46WU0vQrHn1OlWQopyWAAAAGKA-7C7w"
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -19,7 +36,7 @@ url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type": "refresh_token",
     "client_id": "152831f2d43d3d3c3b003a24ec2fa088",
-    "refresh_token": "9cOL-jFByjLqxSjtGxSvs_vyLUrbs66Nc4I4yq-cCj11XAAAAYn_W145"
+    "refresh_token": "NPaNY_Ik0qXTWTJMAh04eMrY6UAzwWFDiFcaIvLBCiolEAAAAYoD8AMU"
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -55,12 +72,12 @@ data={
     "template_object": json.dumps({
         "object_type":"text",
         #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
-        "text":f"{user_name}(이)가 {commit_time}에 '{commit_message}'라는 message와 함께 pull_request를 요청했어요!",
+        "text":f"{user_name} : '{commit_message}' {event_name} 요청! - {commit_time}",
         "link":{
             "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
             "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
         },
-        "button_title": "깃허브로 가기!!"
+        "button_title": "무야호!!"
     })
 }
 response = requests.post(url, headers=header, data=data)

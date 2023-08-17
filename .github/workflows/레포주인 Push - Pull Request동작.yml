@@ -21,8 +21,10 @@ jobs:
             COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
             echo ${{ steps.user_info.outputs.USER_NAME }} >> $GITHUB_ENV
             echo ${{ steps.user_info.outputs.COMMIT_TIME }} >> $GITHUB_ENV
-            echo ${{ steps.user_info.outputs.COMMIT_MESSAGE }} >> $GITHUB_ENV
+            # echo ${{ steps.user_info.outputs.COMMIT_MESSAGE }} >> $GITHUB_ENV
+            echo "::set-output name=pr_title::$(git log --merges -1 --pretty=format:'%s')">> $GITHUB_ENV
           fi
+
 
 
       - name: Log User Information

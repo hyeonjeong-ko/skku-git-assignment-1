@@ -27,6 +27,7 @@ jobs:
         run: |
           if [[ ${{ github.event_name }} == 'pull_request' ]]; then
             echo "EVENT_NAME=Pull Request" >> $GITHUB_ENV
+            echo "MERGED_STATUS=${{ github.event.pull_request.merged }}" >> $GITHUB_ENV
           elif [[ ${{ github.event_name }} == 'push' ]]; then
             echo "EVENT_NAME=Push" >> $GITHUB_ENV
           elif [[ ${{ github.event_name }} == 'workflow_run' ]]; then

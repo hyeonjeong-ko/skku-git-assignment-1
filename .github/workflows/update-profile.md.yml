@@ -30,6 +30,9 @@ jobs:
           echo "::set-output name=user_name::$USER_NAME"
           echo "::set-output name=commit_time::$COMMIT_TIME"
           echo "::set-output name=commit_message::$COMMIT_MESSAGE"
+          echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
+          echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
+          echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
 
       - name: Read Existing Profile Content
         if: github.event_name == 'push'

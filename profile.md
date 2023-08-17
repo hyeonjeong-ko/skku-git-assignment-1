@@ -36,3 +36,8 @@
 
 
 
+## User Profile
+'2020311920'가 '2023-08-17 13:08:37 +0900'에 '(거의 된듯)sc-finalPro-finalBranch에서 sc-main으로 merge합니다'로 merge 하였음을 기록합니다
+
+
+

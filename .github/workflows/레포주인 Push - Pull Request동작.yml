@@ -35,13 +35,6 @@ jobs:
           title: ${{ github.event.head_commit.message }} ${{github.ref_name}}
 
 
-      - name: Display PR Information
-        run: |
-          echo "Pull Request Event Information:"
-          echo "================================"
-          echo "${{github.ref_name}}" >> $GITHUB_ENV
-          echo "Head Repository: ${{github.ref_name}}"
-
       - name: Run kakaotalkAlarm.py
         if: steps.is_owner.outputs.is_owner == 'true'
         run: python .github/workflows/sendToMeAlarm.py

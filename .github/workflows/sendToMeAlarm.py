@@ -34,8 +34,7 @@ print("Commit Message:", commit_message)
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{user_name} : {commit_message} -{commit_time} ",
-                                     #"text" : "흠...",
+                                     "text" : f"{user_name} : {commit_message} -{commit_time} sendTomeAlarm파일 ",
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",
                                                  "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"

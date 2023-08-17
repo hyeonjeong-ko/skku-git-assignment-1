@@ -34,7 +34,7 @@ print("Commit Message:", commit_message)
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{user_name}이 {commit_time}에 {commit_message} 라고 보냄",
+                                     "text" : f"{user_name}이 {commit_time}에 {commit_message} 라고 합니다",
                                      #"text" : "흠...",
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",

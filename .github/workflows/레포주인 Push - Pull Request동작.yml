@@ -38,7 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           head: ${{ github.ref }}
           base: main
-          title: ${{github.ref_name}}
+          title: ${{github.ref_name}} >>  $GITHUB_ENV
 
       - name: Run kakaotalkAlarm.py
         if: steps.is_owner.outputs.is_owner == 'true'

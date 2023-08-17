@@ -40,3 +40,8 @@ jobs:
         echo "From Branch: $ORIGIN_BRANCH"
         echo "To Branch: $DESTINATION_BRANCH"
 
+        echo "BRANCH_NAME=$BRANCH_NAME"
+        echo "USER_NAME=$USER_NAME"
+        echo "ORIGIN_BRANCH=$ORIGIN_BRANCH"
+        echo "DESTINATION_BRANCH=$DESTINATION_BRANCH"
+

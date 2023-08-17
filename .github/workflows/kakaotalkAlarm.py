@@ -64,15 +64,20 @@ header = {"Authorization": 'Bearer ' + tokens["access_token"]}
 
 # Git Action에서 받은 정보를 사용하여 메시지 내용 구성
 #(sc가 추가)근데 user_info_pull_request인지 user_info_push인지 체크
-if event_name == 'Pull Request':
-    user_name = "'${{ steps.user_info_pull_request.outputs.user_name }}'"
-    commit_time = "'${{ steps.user_info_pull_request.outputs.commit_time }}'"
-    commit_message = "'${{ steps.user_info_pull_request.outputs.commit_message }}'"
+#if event_name == 'Pull Request':
+#    user_name = "'${{ steps.user_info_pull_request.outputs.user_name }}'"
+#    commit_time = "'${{ steps.user_info_pull_request.outputs.commit_time }}'"
+#    commit_message = "'${{ steps.user_info_pull_request.outputs.commit_message }}'"
 
-else:
-    user_name = "'${{ steps.user_info_push.outputs.user_name }}'"
-    commit_time = "'${{ steps.user_info_push.outputs.commit_time }}'"
-    commit_message = "'${{ steps.user_info_push.outputs.commit_message }}'"
+#else:
+#    user_name = "'${{ steps.user_info_push.outputs.user_name }}'"
+#    commit_time = "'${{ steps.user_info_push.outputs.commit_time }}'"
+#    commit_message = "'${{ steps.user_info_push.outputs.commit_message }}'"
+
+# Get user information from environment variables
+user_name = os.environ.get('USER_NAME')
+commit_time = os.environ.get('COMMIT_TIME')
+commit_message = os.environ.get('COMMIT_MESSAGE')
 
 data={
     'receiver_uuids': '["{}"]'.format(friend_id),
@@ -84,7 +89,7 @@ data={
             "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
             "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
         },
-        "button_title": "무야호!!"
+        "button_title": "깃헙으로 이동하기"
     })
 }
 response = requests.post(url, headers=header, data=data)

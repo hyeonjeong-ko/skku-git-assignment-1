@@ -7,7 +7,7 @@ data = {
     "grant_type" : "authorization_code",
     "client_id" : "152831f2d43d3d3c3b003a24ec2fa088", # {restapi}
     "redirect_url" : "https://localhost:3000", 
-    "code" : "HOH8f9qM4aBfyC80WtJ7DrpaULZYYil3el2g3fhbdRjLbohJgs17Of6yr5tg4FWFYSaGwgo9dZsAAAGKAdHASw" # {code}
+    "code" : "6aNDgkpGaoC7s1dakW3tyX9wtolhjxOI5sZNec04Bfki1gpdtI0ZezTu9oQZxhGn2JJHIQoqJQ0AAAGKAdRViA" # {code}
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -19,7 +19,7 @@ with open("kakao_code.json", "w") as fp:
 
 url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
 headers = {
-    "Authorization": "Bearer " + "lg22ScFCWu5myzmCzTmpS5w6KThU_zIfCHIdwBRQCiolDwAAAYoB0eeN" # {access token}
+    "Authorization": "Bearer " + "9W75yjDo7gX1PboGk-kR5c__iMsZ5J2L0y5g9LsQCj10aAAAAYoB1IS6" # {access token}
 }
 
 # Get user information from environment variables

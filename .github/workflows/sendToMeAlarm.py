@@ -5,9 +5,9 @@ import os
 url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type" : "authorization_code",
-    "client_id" : "152831f2d43d3d3c3b003a24ec2fa088",
-    "redirect_url" : "https://localhost:3000",
-    "code" : "-nimEXsni1ON7FWibwRrxuoFhk94n2jDewgY9lCcXFoXNjqhpMOCk3OTVAynlVA5ZGe8jQo9dJcAAAGKASweug"
+    "client_id" : "152831f2d43d3d3c3b003a24ec2fa088", # {restapi}
+    "redirect_url" : "https://localhost:3000", 
+    "code" : "4fxR-54bu1PpTGxyWWqPrxIiSyAHLlPzVSGEwlh7tpbkbrbP_098JNrWV8FjhTloqRHEdwo9dZsAAAGKAcZSBA" # {code}
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -19,7 +19,7 @@ with open("kakao_code.json", "w") as fp:
 
 url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
 headers = {
-    "Authorization": "Bearer " + "j2n-z7QYj1dNW8acGxnyWi9AC4DNeYTmFshMHQ9TCj102QAAAYoBLb1Y"
+    "Authorization": "Bearer " + "XmKhb6WDM-x8gj85gFhVkqQ-LhEzXvDoSK0qaOmlCiolEAAAAYoBx2gY" # {access token}
 }
 
 # Get user information from environment variables
@@ -34,7 +34,7 @@ print("Commit Message:", commit_message)
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{user_name}이 {commit_time}에 {commit_message} 라고 합니다",
+                                     "text" : f"{user_name} : {commit_message} -{commit_time} ",
                                      #"text" : "흠...",
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",

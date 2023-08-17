@@ -91,14 +91,18 @@ jobs:
           git add profile.md
           git commit -m "Update user profile"
           git push
-
-      - name: Run kakaotalkAlarm.py on pull request
-        if: github.event_name == 'pull_request'
-        #run: python .github/workflows/kakaotalkAlarm.py
-        run: python .github/workflows/sendToMeAlarm.py
-
-      - name: Run kakaotalkAlarm.py on push
-        if: github.event_name == 'push'
-        run: python .github/workflows/sendToMeAlarm.py
       
+      - name: Run kakaotalkAlarm.py
+        run: python .github/workflows/sendToMeAlarm.py
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
 
+
+      # - name: Run kakaotalkAlarm.py on pull request
+      #   if: github.event_name == 'pull_request'
+      #   #run: python .github/workflows/kakaotalkAlarm.py
+      #   run: python .github/workflows/sendToMeAlarm.py
+
+      # - name: Run kakaotalkAlarm.py on push
+      #   if: github.event_name == 'push'
+      #   run: python .github/workflows/sendToMeAlarm.py
+    

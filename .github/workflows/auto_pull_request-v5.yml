@@ -1,4 +1,4 @@
-name: Auto Pull Request-v4
+name: Auto Pull Request-v5
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
           # echo "USER_NAME=$GITHUB_ACTOR" >> $GITHUB_ENV
           echo "$USER_NAME" >> $GITHUB_ENV
           echo "$ORIGIN_BRANCH" >> $GITHUB_ENV
-          echo "$BRANCH_NAME >> $GITHUB_ENV
+          echo "$BRANCH_NAME" >> $GITHUB_ENV
         fi
       shell: bash
 

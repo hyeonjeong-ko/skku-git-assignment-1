@@ -48,7 +48,6 @@ jobs:
 
       - name: Set User Information
         #if: github.event_name == 'push'
-        if: steps.is_owner.outputs.is_owner == 'false'
         id: user_info
         run: |
           USER_NAME=$(git log -1 --pretty=format:'%an')

@@ -99,16 +99,21 @@ data = {
         "object_type": "feed",
         "content": {
             "title": f"{user_name}님의 Git 이벤트",
-            "description": f"'{commit_message}' ({event_name} 요청) - {commit_time}",
+            "description": (
+                f"'{commit_message}' ({event_name} 요청) - {commit_time}\n"
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
+                "Vestibulum vel lacus vitae nisl pharetra volutpat."
+            ),
             "image_url": "https://cdn-icons-png.flaticon.com/512/25/25231.png",  # Replace with your image URL
             "link": {
-                "web_url": "https://github.com",
-                "mobile_web_url": "https://github.com"
+                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
             }
         },
         "button_title": "깃헙으로 이동하기"
     })
 }
+
 
 response = requests.post(url, headers=header, data=data)
 response.status_code

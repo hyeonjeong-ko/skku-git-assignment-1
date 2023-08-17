@@ -44,6 +44,6 @@ jobs:
           title: "커밋메시지 : ${{ github.event.head_commit.message }}"
 
 
-      - name: Run sendToMeAlarm.py on push
-        if: steps.is_owner.outputs.is_owner == 'true'
-        run: python .github/workflows/sendToMeAlarm.py
+      # - name: Run sendToMeAlarm.py on push
+      #   if: steps.is_owner.outputs.is_owner == 'true'
+      #   run: python .github/workflows/sendToMeAlarm.py

@@ -22,6 +22,18 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+          
+
+      # Install dependencies for both cases
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
       - name: Set Event Name
         id: set_event_name
         run: |
@@ -35,7 +47,7 @@ jobs:
           fi
 
       - name: Set User Information
-        if: steps.is_owner.outputs.is_owner == 'false'
+        #if: github.event_name == 'push'
         id: user_info
         run: |
           USER_NAME=$(git log -1 --pretty=format:'%an')
@@ -79,17 +91,6 @@ jobs:
           git add profile.md
           git commit -m "Update user profile"
           git push
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-
-      # Install dependencies for both cases
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
 
       - name: Run kakaotalkAlarm.py on pull request
         if: github.event_name == 'pull_request'

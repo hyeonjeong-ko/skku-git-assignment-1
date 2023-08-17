@@ -79,18 +79,36 @@ user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
 
-data={
-    'receiver_uuids': '["{}"]'.format(friend_id),
+#data={
+#    'receiver_uuids': '["{}"]'.format(friend_id),
+#    "template_object": json.dumps({
+#        "object_type":"text",
+#        #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
+#        "text":f"{user_name} : '{commit_message}' {event_name} 요청! - {commit_time}",
+#        "link":{
+#            "web_url" : "https://github.com",
+#            "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+#        },
+#        "button_title": "깃헙으로 이동하기"
+#    })
+#}
+
+data = {
+    'receiver_uuids': f'["{friend_id}"]',
     "template_object": json.dumps({
-        "object_type":"text",
-        #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
-        "text":f"{user_name} : '{commit_message}' {event_name} 요청! - {commit_time}",
-        "link":{
-            "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-            "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+        "object_type": "feed",
+        "content": {
+            "title": f"{user_name}님의 Git 이벤트",
+            "description": f"'{commit_message}' ({event_name} 요청) - {commit_time}",
+            "image_url": "https://cdn-icons-png.flaticon.com/512/25/25231.png",  # Replace with your image URL
+            "link": {
+                "web_url": "https://github.com",
+                "mobile_web_url": "https://github.com"
+            }
         },
         "button_title": "깃헙으로 이동하기"
     })
 }
+
 response = requests.post(url, headers=header, data=data)
 response.status_code

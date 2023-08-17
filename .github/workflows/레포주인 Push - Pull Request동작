@@ -1,4 +1,4 @@
-name: 레포주인 Push - Pull Request동작ㄹ
+name: 레포주인이 Push할때 Pull Request작동되나요~?
 on: push
 
 jobs:
@@ -24,13 +24,6 @@ jobs:
             echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
           fi
 
-      - name: Log User Information
-        run: |
-          echo "User Name: ${{ steps.user_info.outputs.USER_NAME }}"
-          echo "Commit Time: ${{ steps.user_info.outputs.COMMIT_TIME }}"
-          echo "Commit Message: ${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
-
-
       - name: Create pull request
         if: steps.is_owner.outputs.is_owner == 'true'
         uses: thomaseizinger/create-pull-request@master
@@ -39,7 +32,3 @@ jobs:
           head: ${{ github.ref }}
           base: main
           title: "PR by ${{ steps.user_info.outputs.USER_NAME }} - ${{ steps.user_info.outputs.COMMIT_TIME }} - ${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
-
-      - name: Run kakaotalkAlarm.py
-        run: python .github/workflows/sendToMeAlarm.py
-        if: github.event_name == 'pull_request' || github.event_name == 'push'

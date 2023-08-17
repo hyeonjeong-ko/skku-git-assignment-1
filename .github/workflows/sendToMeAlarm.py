@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-# 카카오톡 메시지 API 입니다
+# 카카오톡 메시지 API 입니다 !
 url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type" : "authorization_code",

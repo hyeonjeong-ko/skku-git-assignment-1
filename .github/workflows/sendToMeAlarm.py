@@ -35,16 +35,16 @@ print("Commit Message:", commit_message)
 
 
 
-base_ref = os.environ['GITHUB_EVENT_PULL_REQUEST_BASE_REF']
-head_ref = os.environ['GITHUB_EVENT_PULL_REQUEST_HEAD_REF']
+ref_name = os.environ['ref_name']
 
-print(f"Base Branch: {base_ref}")
-print(f"Head Branch: {head_ref}")
+
+print(f"ref_name")
+
 
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{user_name} : {commit_message} -{commit_time} sendTomeAlarm파일  {head_ref} to {base_ref} ",
+                                     "text" : f"{user_name} : {commit_message} -{commit_time} sendTomeAlarm파일  {ref_name} to main ",
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",
                                                  "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"

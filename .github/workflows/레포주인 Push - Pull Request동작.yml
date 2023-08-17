@@ -28,9 +28,9 @@ jobs:
         id: user_info
         run: |
           if [[ ${{ steps.is_owner.outputs.is_owner }} == 'true' ]]; then
-            USER_NAME=$(git log -1 --pretty=format:'%an')
-            COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
-            COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
+            # USER_NAME=$(git log -1 --pretty=format:'%an')
+            # COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
+            # COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
             echo ${{ steps.user_info.outputs.USER_NAME }} >> $GITHUB_ENV
             echo ${{ steps.user_info.outputs.COMMIT_TIME }} >> $GITHUB_ENV
             # echo ${{ steps.user_info.outputs.COMMIT_MESSAGE }} >> $GITHUB_ENV

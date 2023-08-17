@@ -27,7 +27,7 @@ user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
 
-file_name = os.environ.get('FILE_NAME')
+ref_name = os.environ.get('ref_name')
 
 
 # Print the user information
@@ -35,11 +35,11 @@ print("User Name:", user_name)
 print("Commit Time:", commit_time)
 print("Commit Message:", commit_message)
 
-print("file_name:", file_name)
+print("ref_name:", ref_name)
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{user_name} : {commit_message} -{commit_time} sendTomeAlarm파일 {file_name} ",
+                                     "text" : f"{user_name} : {commit_message} -{commit_time} sendTomeAlarm파일 {ref_name} ",
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",
                                                  "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"

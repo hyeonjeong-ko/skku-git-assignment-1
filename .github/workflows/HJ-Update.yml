@@ -22,6 +22,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Set Event Name
+        id: set_event_name
+        run: |
+          if [[ ${{ github.event_name }} == 'pull_request' ]]; then
+            echo "EVENT_NAME=Pull Request" >> $GITHUB_ENV
+          elif [[ ${{ github.event_name }} == 'push' ]]; then
+            echo "EVENT_NAME=Push" >> $GITHUB_ENV
+          elif [[ ${{ github.event_name }} == 'workflow_run' ]]; then
+            echo "EVENT_NAME=Workflow Run" >> $GITHUB_ENV
+          fi
+
       - name: Set User Information
         #if: github.event_name == 'push'
         id: user_info

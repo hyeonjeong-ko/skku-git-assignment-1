@@ -1,4 +1,4 @@
-name: 레포주인 Push - Pull Request동작
+name: 레포주인 Push - Pull Request동작ㄹ
 on: push
 
 jobs:

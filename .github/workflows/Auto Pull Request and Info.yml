@@ -45,3 +45,7 @@ jobs:
         echo "ORIGIN_BRANCH=$ORIGIN_BRANCH"
         echo "DESTINATION_BRANCH=$DESTINATION_BRANCH"
 
+  
+    - name: Run kakaotalkAlarm.py
+      if: steps.is_owner.outputs.is_owner == 'true'
+      run: python .github/workflows/sendToMeAlarm.py

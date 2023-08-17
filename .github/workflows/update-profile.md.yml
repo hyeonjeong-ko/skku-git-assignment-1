@@ -70,10 +70,11 @@ jobs:
         id: user_info_for_pythonCode
         run: |
           USER_NAME=$(git log -1 --pretty=format:'%an')
-          COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
-          COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
+          COMMIT_TIME_UTC=$(git log -1 --pretty=format:'%ci')
+          COMMIT_TIME_KST=$(date -d "$COMMIT_TIME_UTC" +"%Y-%m-%d %H:%M:%S" --utc)
+          COMMIT_MESSAGE=$(git log -1 --pretty=format:'%B')  # %B를 사용하여 전체 커밋 메시지 가져오기
           echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
-          echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
+          echo "COMMIT_TIME=$COMMIT_TIME_KST" >> $GITHUB_ENV
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
 
       - name: Set up Python 3.9

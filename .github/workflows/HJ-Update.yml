@@ -2,11 +2,13 @@ name: Update User Profile_ver2
 
 on:
   pull_request:
+    types:
+      - opened
+      - synchronize
     branches:
       - '*'
   push:
     branches:
-      #- sc-finalPro-finalBranch #profile.md가 업뎃 되기는 하는지 확인용용
       - '*'
 
 permissions:

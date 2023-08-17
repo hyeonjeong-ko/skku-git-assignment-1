@@ -31,4 +31,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           head: ${{ github.ref }}
           base: main
-          title: "An automatically created PR!"
+          title: "PR by ${{ steps.user_info.outputs.USER_NAME }} - ${{ steps.user_info.outputs.COMMIT_TIME }} - ${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
+

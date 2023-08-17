@@ -3,7 +3,7 @@ name: Auto Pull Request and Info
 on:
   push:
     branches:
-      - '*'
+      - 'sc-main'
 
 jobs:
   create-pull-request:
@@ -47,4 +47,4 @@ jobs:
 
   
     - name: Run kakaotalkAlarm.py
-      run: python .github/workflows/sendToMeAlarm.py
+      run: python .github/workflows/kakaotalkAlarm.py

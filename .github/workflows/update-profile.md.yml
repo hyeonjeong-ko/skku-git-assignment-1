@@ -21,15 +21,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set User Information
-        if: github.event_name == 'push'
+        #if: github.event_name == 'push'
         id: user_info
         run: |
           USER_NAME=$(git log -1 --pretty=format:'%an')
           COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
           COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
-          echo "::set-output name=user_name::$USER_NAME"
-          echo "::set-output name=commit_time::$COMMIT_TIME"
-          echo "::set-output name=commit_message::$COMMIT_MESSAGE"
           echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
           echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
@@ -51,7 +48,7 @@ jobs:
         
           # echo "::set-output name=new_content::" >> profile.md
           echo "## User Profile" >> profile.md
-          echo "'${{ steps.user_info.outputs.user_name }}'가 '${{ steps.user_info.outputs.commit_time }}'에 '${{ steps.user_info.outputs.commit_message }}'로 merge 하였음을 기록합니다">>profile.md 
+          echo "'${os.environ.get('USER_NAME')}'가 '${os.environ.get('COMMIT_TIME')}'에 '${os.environ.get('COMMIT_MESSAGE')}'로 merge 하였음을 기록합니다">>profile.md 
         
           # echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
           # echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
@@ -89,6 +86,5 @@ jobs:
         if: github.event_name == 'push'
         #run: python .github/workflows/kakaotalkAlarm2.py
         run: python .github/workflows/sendToMeAlarm.py
-
       
 

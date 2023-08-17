@@ -27,12 +27,15 @@ user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
 
-print(user_name)
+# Print the user information
+print("User Name:", user_name)
+print("Commit Time:", commit_time)
+print("Commit Message:", commit_message)
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     #"text" : "{os.environ.get('USER_NAME')}이 {os.environ.get('COMMIT_TIME')}에 {os.environ.get('COMMIT_MESSAGE')} 라고 보냄",
-                                     "text" : "흠...",
+                                     "text" : f"{user_name}이 {commit_time}에 {commit_message} 라고 보냄",
+                                     #"text" : "흠...",
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",
                                                  "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"

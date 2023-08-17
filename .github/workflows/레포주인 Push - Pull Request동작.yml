@@ -43,4 +43,5 @@ jobs:
 
 
       - name: Run sendToMeAlarm.py on push
+        if: steps.is_owner.outputs.is_owner == 'true'
         run: python .github/workflows/sendToMeAlarm.py

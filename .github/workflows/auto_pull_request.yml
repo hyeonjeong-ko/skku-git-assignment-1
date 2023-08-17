@@ -35,3 +35,9 @@ jobs:
         else
           echo "No need to create Pull Request for main branch."
         fi
+
+    - name: Display Environment Variables
+      run: |
+        echo "User: $USER_NAME"
+        echo "From Branch: $ORIGIN_BRANCH"
+        echo "To Branch: main (current branch: $BRANCH_NAME)"

@@ -24,12 +24,11 @@ jobs:
             echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
           fi
 
-      - name: Log User Information
-        run: |
-          echo "User Name: ${{ steps.user_info.outputs.USER_NAME }}"
-          echo "Commit Time: ${{ steps.user_info.outputs.COMMIT_TIME }}"
-          echo "Commit Message: ${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
 
+      - name: Set Head Ref
+        id: set_head_ref
+        run: |
+          echo ${{ github.ref }} >> $GITHUB_ENV
 
       - name: Create pull request
         if: steps.is_owner.outputs.is_owner == 'true'
@@ -38,7 +37,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           head: ${{ github.ref }}
           base: main
-          title: ${{github.ref_name}} >>  $GITHUB_ENV
+          title: ${{ github.event.head_commit.message }} ${{github.ref_name}}
+          
 
       - name: Run kakaotalkAlarm.py
         if: steps.is_owner.outputs.is_owner == 'true'

@@ -1,6 +1,18 @@
 # 라이브러리 호출
+import os
 import requests
 import json
+
+event_name = os.environ.get('EVENT_NAME')
+
+if event_name == 'Pull Request':
+    print("This is a Pull Request event.")
+elif event_name == 'Push':
+    print("This is a Push event.")
+else:
+    print("Event type:", event_name)
+
+
 
 # 카카오톡 메시지 API
 url = "https://kauth.kakao.com/oauth/token"

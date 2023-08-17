@@ -1,0 +1,41 @@
+name: Auto Pull Request
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set environment variables
+      run: |
+        BRANCH_NAME=${GITHUB_REF#refs/heads/}
+        if [ "$BRANCH_NAME" != "main" ]; then
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          echo "ORIGIN_BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+          echo "USER_NAME=$GITHUB_ACTOR" >> $GITHUB_ENV
+        fi
+      shell: bash
+
+    - name: Create Pull Request
+      run: |
+        if [ -n "$BRANCH_NAME" ]; then
+          echo "Creating Pull Request from $BRANCH_NAME to main"
+          hub pull-request -b main -h $BRANCH_NAME -m "Automated Pull Request from $BRANCH_NAME"
+        else
+          echo "No need to create Pull Request for main branch."
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+    - name: Display Environment Variables
+      run: |
+        echo "User: $USER_NAME"
+        echo "From Branch: $ORIGIN_BRANCH"
+        echo "To Branch: main"

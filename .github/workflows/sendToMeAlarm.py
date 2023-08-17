@@ -26,12 +26,18 @@ headers = {
 user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
+pull_request_time = os.environ.get('PULL_REQUEST_TIME')  # 환경 변수 이름에 맞게 설정
+pull_request_message = os.environ.get('PULL_REQUEST_MESSAGE')  # 환경 변수 이름에 맞게 설정
 
 print(user_name)
+print(commit_time)
+print(commit_message)
+print(pull_request_time)
+print(pull_request_message)
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{os.environ.get('USER_NAME')}이 {os.environ.get('COMMIT_TIME')}에 {os.environ.get('COMMIT_MESSAGE')} 라고 보냄",
+                                     "text" : f"{os.environ.get('USER_NAME')}이 {os.environ.get('PULL_REQUEST_TIME')}에 {os.environ.get('PULL_REQUEST_MESSAGE')} 라고 보냄",
                                      #"text" : "흠...",
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",

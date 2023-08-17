@@ -93,7 +93,7 @@ jobs:
           git push
       
       - name: Run kakaotalkAlarm.py
-        if: steps.is_owner.outputs.is_owner == 'false' && (github.event_name == 'pull_request' || github.event_name == 'push')
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
         run: python .github/workflows/sendToMeAlarm.py
         
 

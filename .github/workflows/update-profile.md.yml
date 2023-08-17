@@ -6,7 +6,7 @@ on:
       - sc-main
   push:
     branches:
-      - sc-finalPro-finalBranch #profile.md가 업뎃 되기는 하는지 확인용용
+      #- sc-finalPro-finalBranch #profile.md가 업뎃 되기는 하는지 확인용용
       - sc-main
 
 permissions:

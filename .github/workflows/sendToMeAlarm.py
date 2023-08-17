@@ -19,7 +19,7 @@ with open("kakao_code.json", "w") as fp:
 
 url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
 headers = {
-    "Authorization": "Bearer " + "7vViHL-6obGtf8vUweE36TkTC-TRhOcjLBQECN87CisM0wAAAYoDUD4j" # {access token}
+    "Authorization": "Bearer " + "cjQ8x_-UT3hokKyVroMeaGFqT6zHmR32N8KmZ2sECiolEAAAAYoD8AMV" # {access token}
 }
 
 # Get user information from environment variables

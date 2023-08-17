@@ -12,6 +12,18 @@ jobs:
         run: echo "::set-output name=is_owner::${{ github.actor == github.repository_owner }}"
 
         
+
+      - name: Create pull request
+        if: steps.is_owner.outputs.is_owner == 'true'
+        uses: thomaseizinger/create-pull-request@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          head: ${{ github.ref }}
+          base: main
+          title: "커밋메시지 : ${{ github.event.head_commit.message }}"
+
+
+
       - name: Set User Information
         id: user_info
         run: |
@@ -23,32 +35,9 @@ jobs:
             echo ${{ steps.user_info.outputs.COMMIT_TIME }} >> $GITHUB_ENV
             # echo ${{ steps.user_info.outputs.COMMIT_MESSAGE }} >> $GITHUB_ENV
             echo "::set-output name=pr_title::$(git log --merges -1 --pretty=format:'%s')">> $GITHUB_ENV
+            echo ${{github.ref_name}} >> $GITHUB_ENV
+            echo ${{github.ref_name}}
           fi
-
-
-
-      - name: Log User Information
-        run: |
-          echo "User Name: ${{ steps.user_info.outputs.USER_NAME }}"
-          echo "Commit Time: ${{ steps.user_info.outputs.COMMIT_TIME }}"
-          echo "Commit Message: ${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
-
-      - name: Extract File Name
-        id: extract_file_name
-        run: |
-          FULL_COMMIT_MESSAGE="${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
-          FILE_NAME=${FULL_COMMIT_MESSAGE#*Merge }
-          echo "FILE_NAME=$FILE_NAME" >> $GITHUB_ENV
-
-      - name: Create pull request
-        if: steps.is_owner.outputs.is_owner == 'true'
-        uses: thomaseizinger/create-pull-request@master
-        with:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-          head: ${{ github.ref }}
-          base: main
-          title: "커밋메시지 : ${{ github.event.head_commit.message }}"
-
 
       - name: Run sendToMeAlarm.py on push
         if: steps.is_owner.outputs.is_owner == 'true'

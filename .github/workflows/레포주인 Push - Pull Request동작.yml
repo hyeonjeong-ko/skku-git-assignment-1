@@ -1,5 +1,5 @@
 name: 레포주인이 Push할때 Pull Request작동되나요~?
-on: push
+on: pull_request
 
 jobs:
   create-pr-on-push:
@@ -11,23 +11,29 @@ jobs:
         id: is_owner
         run: echo "::set-output name=is_owner::${{ github.actor == github.repository_owner }}"
 
-
-
+        
       - name: Set User Information
         id: user_info
         run: |
           if [[ ${{ steps.is_owner.outputs.is_owner }} == 'true' ]]; then
-            # USER_NAME=$(git log -1 --pretty=format:'%an')
-            # COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
-            # COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
-            echo ${{ steps.user_info.outputs.USER_NAME }} >> $GITHUB_ENV
-            echo ${{ steps.user_info.outputs.COMMIT_TIME }} >> $GITHUB_ENV
-            # echo ${{ steps.user_info.outputs.COMMIT_MESSAGE }} >> $GITHUB_ENV
-            echo "::set-output name=pr_title::$(git log --merges -1 --pretty=format:'%s')">> $GITHUB_ENV
-            echo ${{github.ref_name}} >> $GITHUB_ENV
-            echo ${{github.ref_name}}
+            USER_NAME=$(git log -1 --pretty=format:'%an')
+            COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
+            COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
+            echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
+            echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
+            echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
           fi
-        
+
+
+      - name: Log User Information
+        run: |
+          echo "User Name: ${{ steps.user_info.outputs.USER_NAME }}"
+          echo "Commit Time: ${{ steps.user_info.outputs.COMMIT_TIME }}"
+          echo "Commit Message: ${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
+
+      - name: Set PR Title
+        id: pr_title
+        run: echo "::set-output name=pr_title::$(git log --merges -1 --pretty=format:'%s')"
 
       - name: Create pull request
         if: steps.is_owner.outputs.is_owner == 'true'
@@ -36,10 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           head: ${{ github.ref }}
           base: main
-          title: "커밋메시지 : ${{ github.event.head_commit.message }}"
-
-
+          title: ${{ steps.pr_title.outputs.pr_title }}
 
       - name: Run sendToMeAlarm.py on push
-        if: steps.is_owner.outputs.is_owner == 'true'
         run: python .github/workflows/sendToMeAlarm.py

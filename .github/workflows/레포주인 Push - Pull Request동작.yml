@@ -25,11 +25,6 @@ jobs:
           fi
 
 
-      - name: Set Head Ref
-        id: set_head_ref
-        run: |
-          echo ${{ github.ref }} >> $GITHUB_ENV
-
       - name: Create pull request
         if: steps.is_owner.outputs.is_owner == 'true'
         uses: thomaseizinger/create-pull-request@master
@@ -38,7 +33,16 @@ jobs:
           head: ${{ github.ref }}
           base: main
           title: ${{ github.event.head_commit.message }} ${{github.ref_name}}
-          
+
+
+      - name: Display PR Information
+        run: |
+          echo "Pull Request Event Information:"
+          echo "================================"
+          echo "${{ github.event.pull_request.base.ref }}" >> $GITHUB_ENV
+          echo "${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+          echo "Base Repository: ${{ github.event.pull_request.base.repo.full_name }}"
+          echo "Head Repository: ${{ github.event.pull_request.head.repo.full_name }}"
 
       - name: Run kakaotalkAlarm.py
         if: steps.is_owner.outputs.is_owner == 'true'

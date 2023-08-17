@@ -1,0 +1,42 @@
+name: Auto Pull Request and Info
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set environment variables
+      run: |
+        BRANCH_NAME=${GITHUB_REF#refs/heads/}
+        USER_NAME=$GITHUB_ACTOR
+        ORIGIN_BRANCH=$BRANCH_NAME
+        DESTINATION_BRANCH=main
+        echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+        echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
+        echo "ORIGIN_BRANCH=$ORIGIN_BRANCH" >> $GITHUB_ENV
+        echo "DESTINATION_BRANCH=$DESTINATION_BRANCH" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Create Pull Request
+      run: |
+        echo "Creating Pull Request from $BRANCH_NAME to $DESTINATION_BRANCH"
+        response=$(curl -X POST \
+                    -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                    -d "{\"title\": \"Automated Pull Request\", \"head\": \"$BRANCH_NAME\", \"base\": \"$DESTINATION_BRANCH\"}" \
+                    "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls")
+        echo "Response: $response"
+
+    - name: Display Environment Variables
+      run: |
+        echo "User: $USER_NAME"
+        echo "From Branch: $ORIGIN_BRANCH"
+        echo "To Branch: $DESTINATION_BRANCH"
+

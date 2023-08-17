@@ -31,8 +31,8 @@ print(user_name)
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     #"text" : "{os.environ.get('USER_NAME')}이 {os.environ.get('COMMIT_TIME')}에 {os.environ.get('COMMIT_MESSAGE')} 라고 보냄",
-                                     "text" : "흠...",
+                                     "text" : f"{os.environ.get('USER_NAME')}이 {os.environ.get('COMMIT_TIME')}에 {os.environ.get('COMMIT_MESSAGE')} 라고 보냄",
+                                     #"text" : "흠...",
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",
                                                  "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"

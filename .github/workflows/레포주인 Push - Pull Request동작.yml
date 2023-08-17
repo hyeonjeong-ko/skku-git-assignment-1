@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
           head: ${{ github.ref }}
           base: main
-          title: "PR by ${{ steps.user_info.outputs.USER_NAME }} - ${{ steps.user_info.outputs.COMMIT_TIME }} - ${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
+          title: "커밋메시지 : ${{ github.event.head_commit.message }}"
 
 
       - name: Run sendToMeAlarm.py on push

@@ -1,0 +1,67 @@
+name: Create PR to Main
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  automation:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check if push is from repository owner
+      id: check_owner
+      run: |
+        if [[ "${{ github.actor }}" == "${{ github.repository_owner }}" ]]; then
+          echo "This push is from the repository owner."
+          echo "::set-output name=is_owner::true"
+        else
+          echo "This push is not from the repository owner."
+          echo "::set-output name=is_owner::false"
+        fi
+
+    - name: Create Pull Request
+      if: steps.check_owner.outputs.is_owner == 'true'
+      id: create_pr
+      run: |
+        # Get the current branch name
+        current_branch="${{ github.ref }}"
+        current_branch="${current_branch/refs\/heads\//}"
+
+        # Create a new branch for the PR
+        new_branch="main"
+        git checkout -b "$new_branch"
+
+        # Push the new branch to remote
+        git push origin "$new_branch"
+
+        # Create a Pull Request
+        pr_title="Automated PR from ${{ current_branch }} to $new_branch"
+        pr_body="This Pull Request is automatically generated from the ${{ current_branch }} branch to the $new_branch branch."
+        pr_json=$(curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.TOKEN }}" \
+          -d '{
+            "title": "'"$pr_title"'",
+            "body": "'"$pr_body"'",
+            "head": "'"$current_branch"'",
+            "base": "'"$new_branch"'"
+          }' \
+          "https://api.github.com/repos/${{ github.repository }}/pulls")
+
+        # Extract and set environment variables
+        pr_user=$(echo "$pr_json" | jq -r '.user.login')
+        pr_from_branch=$(echo "$pr_json" | jq -r '.head.ref')
+        pr_to_branch=$(echo "$pr_json" | jq -r '.base.ref')
+
+        echo "::set-env name=PR_USER::$pr_user"
+        echo "::set-env name=PR_FROM_BRANCH::$pr_from_branch"
+        echo "::set-env name=PR_TO_BRANCH::$pr_to_branch"
+
+        echo "Pull Request created by $pr_user from branch $pr_from_branch to branch $pr_to_branch"
+
+    - name: Print Pull Request Info
+      if: steps.check_owner.outputs.is_owner == 'true'
+      run: |
+        echo "PR User: ${{ env.PR_USER }}"
+        echo "PR From Branch: ${{ env.PR_FROM_BRANCH }}"
+        echo "PR To Branch: ${{ env.PR_TO_BRANCH }}"

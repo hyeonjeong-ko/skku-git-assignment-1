@@ -35,6 +35,8 @@ print("User Name:", user_name)
 print("Commit Time:", commit_time)
 print("Commit Message:", commit_message)
 
+print("file_name:", file_name)
+
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
                                      "text" : f"{user_name} : {commit_message} -{commit_time} sendTomeAlarm파일 {file_name} ",

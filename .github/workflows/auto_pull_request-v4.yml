@@ -1,4 +1,4 @@
-name: Auto Pull Request-v3
+name: Auto Pull Request-v4
 
 on:
   push:
@@ -44,3 +44,7 @@ jobs:
         echo "User: $USER_NAME"
         echo "From Branch: $ORIGIN_BRANCH"
         echo "To Branch: main (current branch: $BRANCH_NAME)"
+
+    - name: Run kakaotalkAlarm.py
+      if: steps.is_owner.outputs.is_owner == 'true'
+      run: python .github/workflows/sendToMeAlarm.py

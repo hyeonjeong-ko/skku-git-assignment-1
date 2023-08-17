@@ -4,9 +4,14 @@ import requests
 import json
 
 event_name = os.environ.get('EVENT_NAME')
+merged_status = os.environ.get('MERGED_STATUS')
 
 if event_name == 'Pull Request':
-    print("This is a Pull Request event.")
+    if merged_status == 'true':
+        print("This is a merged Pull Request.")
+        event_name = 'Merge'
+    else:
+        print("This is an open Pull Request.")
 elif event_name == 'Push':
     print("This is a Push event.")
 else:
@@ -67,12 +72,12 @@ data={
     "template_object": json.dumps({
         "object_type":"text",
         #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
-        "text":f"{user_name}(이)가 {commit_time}에 '{commit_message}'라는 message와 함께 pull_request를 요청했어요!",
+        "text":f"{user_name} : '{commit_message}' {event_name} 요청! - {commit_time}",
         "link":{
             "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
             "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
         },
-        "button_title": "깃허브로 가기!!"
+        "button_title": "무야호!!"
     })
 }
 response = requests.post(url, headers=header, data=data)

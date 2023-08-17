@@ -29,7 +29,7 @@ commit_message = os.environ.get('COMMIT_MESSAGE')
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : "{user_name}이 {commit_time}에 {commit_message}라는 메시지를 보냅니다",
+                                     "text" : user_name,
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",
                                                  "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"

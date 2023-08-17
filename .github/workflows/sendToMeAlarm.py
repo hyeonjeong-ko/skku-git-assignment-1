@@ -27,19 +27,24 @@ user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
 
-ref_name = os.environ.get('ref_name')
-
 
 # Print the user information
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
 print("Commit Message:", commit_message)
 
-print("ref_name:", ref_name)
+
+
+base_ref = os.environ['GITHUB_EVENT_PULL_REQUEST_BASE_REF']
+head_ref = os.environ['GITHUB_EVENT_PULL_REQUEST_HEAD_REF']
+
+print(f"Base Branch: {base_ref}")
+print(f"Head Branch: {head_ref}")
+
 
 data = {
     "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{user_name} : {commit_message} -{commit_time} sendTomeAlarm파일 {ref_name} ",
+                                     "text" : f"{user_name} : {commit_message} -{commit_time} sendTomeAlarm파일  {head_ref} to {base_ref} ",
                                      "link" : {
                                                  "web_url" : "https://foss4g.tistory.com/1624",
                                                  "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"

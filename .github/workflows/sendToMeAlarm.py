@@ -34,6 +34,15 @@ print("Commit Time:", commit_time)
 print("Commit Message:", commit_message)
 
 
+# 환경 변수 불러오기
+origin_branch = os.environ.get('ORIGIN_BRANCH')
+branch_name = os.environ.get('BRANCH_NAME')
+
+# 환경 변수 출력
+print(f"User Name: {user_name}")
+print(f"Origin Branch: {origin_branch}")
+print(f"Branch Name: {branch_name}")
+
 
 
 

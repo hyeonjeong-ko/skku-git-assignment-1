@@ -33,6 +33,12 @@ jobs:
           echo "Commit Time: ${{ steps.user_info.outputs.COMMIT_TIME }}"
           echo "Commit Message: ${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
 
+      - name: Extract File Name
+        id: extract_file_name
+        run: |
+          FULL_COMMIT_MESSAGE="${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
+          FILE_NAME=${FULL_COMMIT_MESSAGE#*Merge }
+          echo "FILE_NAME=$FILE_NAME" >> $GITHUB_ENV
 
       - name: Create pull request
         if: steps.is_owner.outputs.is_owner == 'true'
@@ -44,6 +50,6 @@ jobs:
           title: "커밋메시지 : ${{ github.event.head_commit.message }}"
 
 
-      # - name: Run sendToMeAlarm.py on push
-      #   if: steps.is_owner.outputs.is_owner == 'true'
-      #   run: python .github/workflows/sendToMeAlarm.py
+      - name: Run sendToMeAlarm.py on push
+        if: steps.is_owner.outputs.is_owner == 'true'
+        run: python .github/workflows/sendToMeAlarm.py

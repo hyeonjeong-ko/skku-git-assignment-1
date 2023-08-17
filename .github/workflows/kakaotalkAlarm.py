@@ -63,9 +63,16 @@ url= "https://kapi.kakao.com/v1/api/talk/friends/message/default/send"
 header = {"Authorization": 'Bearer ' + tokens["access_token"]}
 
 # Git Action에서 받은 정보를 사용하여 메시지 내용 구성
-user_name = "'${{ steps.user_info.outputs.user_name }}'"
-commit_time = "'${{ steps.user_info.outputs.commit_time }}'"
-commit_message = "'${{ steps.user_info.outputs.commit_message }}'"
+#(sc가 추가)근데 user_info_pull_request인지 user_info_push인지 체크
+if event_name == 'Pull Request':
+    user_name = "'${{ steps.user_info_pull_request.outputs.user_name }}'"
+    commit_time = "'${{ steps.user_info_pull_request.outputs.commit_time }}'"
+    commit_message = "'${{ steps.user_info_pull_request.outputs.commit_message }}'"
+
+else:
+    user_name = "'${{ steps.user_info_push.outputs.user_name }}'"
+    commit_time = "'${{ steps.user_info_push.outputs.commit_time }}'"
+    commit_message = "'${{ steps.user_info_push.outputs.commit_message }}'"
 
 data={
     'receiver_uuids': '["{}"]'.format(friend_id),

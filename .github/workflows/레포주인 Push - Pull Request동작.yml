@@ -22,7 +22,6 @@ jobs:
             echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
             echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
             echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
-            echo "REF_NAME=$ref_name" >> $GITHUB_ENV
           fi
 
 
@@ -34,7 +33,9 @@ jobs:
           head: ${{ github.ref }}
           base: main
           title: ${{ github.event.head_commit.message }} ${{github.ref_name}}
-
+      
+      - name: Set Ref Name
+        run: echo "${{ github.ref_name }}" >> $GITHUB_ENV
 
       - name: Run kakaotalkAlarm.py
         if: steps.is_owner.outputs.is_owner == 'true'

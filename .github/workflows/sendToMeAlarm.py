@@ -2,12 +2,13 @@ import requests
 import json
 import os
 # 카카오톡 메시지 API 입니다
+
 url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type" : "authorization_code",
     "client_id" : "152831f2d43d3d3c3b003a24ec2fa088", # {restapi}
     "redirect_url" : "https://localhost:3000", 
-    "code" : "6aNDgkpGaoC7s1dakW3tyX9wtolhjxOI5sZNec04Bfki1gpdtI0ZezTu9oQZxhGn2JJHIQoqJQ0AAAGKAdRViA" # {code}
+    "code" : "ZNQR4FUJAis_KiCgk87oUObHPJ4tPvub7WgEHuYJmFyIdeVTyYXk9EmbsmaUrXjBhdgEGAoqJVIAAAGKAsc_gA" # {code}
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -19,7 +20,7 @@ with open("kakao_code.json", "w") as fp:
 
 url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
 headers = {
-    "Authorization": "Bearer " + "9W75yjDo7gX1PboGk-kR5c__iMsZ5J2L0y5g9LsQCj10aAAAAYoB1IS6" # {access token}
+    "Authorization": "Bearer " + "0xJe72vIVmn5ElY0JvLcVCI-EiNgMP7Lzsm8HPk4CisNHwAAAYoCyXC3" # {access token}
 }
 
 # Get user information from environment variables

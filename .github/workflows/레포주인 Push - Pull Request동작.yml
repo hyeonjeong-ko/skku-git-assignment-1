@@ -24,6 +24,14 @@ jobs:
             echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
           fi
 
+
+      - name: Log User Information
+        run: |
+          echo "User Name: ${{ steps.user_info.outputs.USER_NAME }}"
+          echo "Commit Time: ${{ steps.user_info.outputs.COMMIT_TIME }}"
+          echo "Commit Message: ${{ steps.user_info.outputs.COMMIT_MESSAGE }}"
+
+
       - name: Create pull request
         if: steps.is_owner.outputs.is_owner == 'true'
         uses: thomaseizinger/create-pull-request@master

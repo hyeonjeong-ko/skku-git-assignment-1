@@ -1,6 +1,6 @@
 name: Assign PR to creator
 
-on: [pull_request]
+on: [push]
 
 jobs:
   automation:

@@ -1,4 +1,4 @@
-name: Update User Profile_ver2
+name: Update User Profile_ver22
 
 on:
   pull_request:

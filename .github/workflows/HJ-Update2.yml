@@ -9,7 +9,7 @@ on:
       - '*'
   push:
     branches:
-      - '*'
+      - 'main'
 
 permissions:
   contents: write
@@ -93,8 +93,9 @@ jobs:
           git push
       
       - name: Run kakaotalkAlarm.py
-        # if: github.event_name == 'pull_request' || github.event_name == 'push'
-        run: python .github/workflows/sendToMeAlarm.py
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        #run: python .github/workflows/sendToMeAlarm.py
+        run: python .github/workflows/kakaotalkAlarm.py
         
 
 

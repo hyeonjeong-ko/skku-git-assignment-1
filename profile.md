@@ -23,3 +23,8 @@
 
 ## User Profile
 
+## User Profile
+'2020311920'가 '2023-08-19 01:11:52 +0900'에 '사용자가 피드를 선택하여 merge합니다'로 merge 하였음을 기록합니다
+
+## User Profile
+

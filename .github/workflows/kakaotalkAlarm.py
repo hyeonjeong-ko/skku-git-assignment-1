@@ -100,7 +100,7 @@ data = {
         "content": {
             "title": f"{user_name}님 {event_name}을 했어요!!",
             "description": (
-                f"'{commit_message}'- {commit_time}\n"
+                f"메시지:'{commit_message}'\n시간:'{commit_time}'\n"
             ),
             "image_url": "https://cdn-icons-png.flaticon.com/512/25/25231.png",  # Replace with your image URL
             "link": {
@@ -111,7 +111,7 @@ data = {
         "button_title": "깃헙으로 이동하기"
     })
 }
-
+print(f"메시지:'{commit_message}'\n시간:'{commit_time}'\n")
 
 response = requests.post(url, headers=header, data=data)
 response.status_code

@@ -118,26 +118,64 @@ print("To Branch:", to_branch)
 
 # 조건문을 사용하여 데이터 준비
 if event_name == 'Push':
-    description = f"'{commit_time}'에\n{to_branch}로 push 완료"
+    description = f"{to_branch}로 push 완료"
 elif event_name == 'Pull Request':
-    description = f"'{new_commit_time}'에\n{from_branch}→{to_branch}"
+    description = f"{from_branch}→{to_branch}"
 
-data = {
-    'receiver_uuids': f'["{friend_id}"]',
-    "template_object": json.dumps({
-        "object_type": "feed",
-        "content": {
-            "title": f"{user_name}님이 {event_name}을 했어요!!",
-            "description": description,
-            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/330px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
-            "link": {
-                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
-            }
-        },
-        "button_title": f"message:'{commit_message}'"
-    })
-}
+# 사용자 템플릿 변수에 따라 텍스트, 피드 설정
+template_type = 'Feed'
+#template_type = 'Text'
+
+if template_type == 'Feed':
+    data = {
+        'receiver_uuids': f'["{friend_id}"]',
+        "template_object": json.dumps({
+            "object_type": "feed",
+            "content": {
+                "title": f"{user_name}님이 {event_name}을 했어요!",
+                "description": description,
+                "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/330px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
+                "link": {
+                    "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                    "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                }
+            },
+            "button_title": "깃헙으로 이동하기"
+        })
+    }
+elif template_type == 'Text':
+    data={
+        'receiver_uuids': '["{}"]'.format(friend_id),
+        "template_object": json.dumps({
+            "object_type":"text",
+            #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
+            "text":f"{user_name}님이 {event_name}을 했어요!\n{description}",
+            "link":{
+                "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+            },
+            "button_title": "깃헙으로 이동하기"
+        })
+    }
+
+
+    
+#data = {
+#    'receiver_uuids': f'["{friend_id}"]',
+#    "template_object": json.dumps({
+#        "object_type": "feed",
+#        "content": {
+#            "title": f"{user_name}님이 {event_name}을 했어요!!",
+#            "description": description,
+#            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/330px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
+#            "link": {
+#                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+#                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+#            }
+#        },
+#        "button_title": "깃헙으로 이동하기"
+#    })
+#}
 
 
 print(f"메시지:'{commit_message}'\n시간:'{commit_time}'\n")

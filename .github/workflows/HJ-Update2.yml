@@ -9,7 +9,7 @@ on:
       - '*'
   push:
     branches:
-      -'*'
+      - '*'
       #- 'sc-main'
 
 permissions:

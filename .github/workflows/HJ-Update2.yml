@@ -46,27 +46,35 @@ jobs:
             echo "EVENT_NAME=Workflow Run" >> $GITHUB_ENV
           fi
 
-      - name: Set User Information
+      - name: Set User and Branch Information
         if: github.event_name == 'push'
-        id: user_info_push
+        id: user_branch_info_push
         run: |
           USER_NAME=$(git log -1 --pretty=format:'%an')
           COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
           COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
           echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
+          echo "CURRENT_BRANCH=$CURRENT_BRANCH" >> $GITHUB_ENV
 
-      - name: Set User Information
+      - name: Set Pull Request Information
         if: github.event_name == 'pull_request'
-        id: user_info_pull_request
+        id: pull_request_info
         run: |
-          USER_NAME=$(git log -1 --pretty=format:'%an')
-          COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
-          COMMIT_MESSAGE="${{ github.event.pull_request.title }}"  # Use the pull request title
-          echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
-          echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
-          echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
+          PULL_REQUEST_URL=${{ github.event.pull_request.url }}
+          PULL_REQUEST_JSON=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" $PULL_REQUEST_URL)
+          BASE_BRANCH=$(echo $PULL_REQUEST_JSON | jq -r .base.ref)
+          HEAD_BRANCH=$(echo $PULL_REQUEST_JSON | jq -r .head.ref)
+          echo "BASE_BRANCH=$BASE_BRANCH" >> $GITHUB_ENV
+          echo "HEAD_BRANCH=$HEAD_BRANCH" >> $GITHUB_ENV
+
+      - name: Show Environment Variables
+        run: |
+          echo "USER_NAME: $USER_NAME"
+          echo "COMMIT_TIME: $COMMIT_TIME"
+          echo "COMMIT_MESSAGE: $COMMIT_MESSAGE"
 
       - name: Read Existing Profile Content
         if: github.event_name == 'push'

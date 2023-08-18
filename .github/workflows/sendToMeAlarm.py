@@ -47,10 +47,7 @@ commit_message = os.environ.get('COMMIT_MESSAGE')
 from_branch = os.environ.get('FROM_BRANCH')
 to_branch = os.environ.get('TO_BRANCH')
 
-# Convert UTC time to the desired timezone (e.g., Asia/Seoul)
-#pull request의 경우 시차 존재
-commit_time_adjusted = commit_time + timedelta(hours=9)
-print(commit_time_adjusted.strftime('%Y-%m-%d %H:%M:%S'))
+
 
 # Print the user information
 print("User Name:", user_name)
@@ -74,7 +71,7 @@ print("To Branch:", to_branch)
 if event_name == 'Push':
     description = f"'{commit_time}'에\n{to_branch}로 push 완료"
 elif event_name == 'Pull Request':
-    description = f"'{commit_time_adjusted.strftime('%Y-%m-%d %H:%M:%S')}'에\n{from_branch}→{to_branch}"
+    description = f"'{commit_time}'에\n{from_branch}→{to_branch}"
 
 data = {
     "template_object" : json.dumps({ "object_type" : "feed",

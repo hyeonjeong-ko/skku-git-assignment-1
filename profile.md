@@ -18,3 +18,8 @@
 
 ## User Profile
 
+## User Profile
+'2020311920'가 '2023-08-19 02:15:04 +0900'에 'Update sendToMeAlarm.py'로 merge 하였음을 기록합니다
+
+## User Profile
+

@@ -6,6 +6,11 @@ from datetime import datetime, timedelta
 
 event_name = os.environ.get('EVENT_NAME')
 merged_status = os.environ.get('MERGED_STATUS')
+send_to_function = os.environ.get('SEND_TO_FUNCTION') #이거 yml에서 분기되는거라 좀 고쳐야 할듯
+rest_api_key = os.environ.get('REST_API_KEY') #ㅇㅇ
+redirect_url = os.environ.get('REDIRECT_URI') #ㅇㅇ
+code_key = os.environ.get('CODE_KEY') #ㅇㅇ
+msg_template = os.environ.get('MSG_TEMPLATE') #ㅇㅇ
 
 if event_name == 'Pull Request':
     if merged_status == 'true':
@@ -24,9 +29,9 @@ else:
 url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type" : "authorization_code",
-    "client_id" : "152831f2d43d3d3c3b003a24ec2fa088",
+    "client_id" : rest_api_key,
     "redirect_url" : "https://localhost:3000",
-    "code" : "S9Ds94R43DJfMfNYXmofOZsELBgdo8JMlVUpf0YXm74v6eLCXz_W3oK46WU0vQrHn1OlWQopyWAAAAGKA-7C7w"
+    "code" : code_key
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -94,19 +99,19 @@ to_branch = os.environ.get('TO_BRANCH')
 
 # pull request과정에서의 시간 변수는 시차 존재
 # Commit time을 문자열에서 datetime 객체로 변환
-commit_time_datetime = datetime.strptime(commit_time, '%Y-%m-%d %H:%M:%S %z')
+#commit_time_datetime = datetime.strptime(commit_time, '%Y-%m-%d %H:%M:%S %z')
 
 # 9시간을 추가하여 새로운 datetime 객체 생성
-new_commit_time_datetime = commit_time_datetime + timedelta(hours=9)
+#new_commit_time_datetime = commit_time_datetime + timedelta(hours=9)
 
 # new_commit_time을 원하는 형식으로 변환하여 출력
-new_commit_time = new_commit_time_datetime.strftime('%Y-%m-%d %H:%M:%S')
+#new_commit_time = new_commit_time_datetime.strftime('%Y-%m-%d %H:%M:%S')
 
 
 #print!!
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
-print("New Commit Time:", new_commit_time)
+#print("New Commit Time:", new_commit_time)
 print("Commit Message:", commit_message)
 print("From Branch:", from_branch)
 print("To Branch:", to_branch)
@@ -132,9 +137,9 @@ elif event_name == 'Pull Request':
 
 # 사용자 템플릿 변수에 따라 텍스트, 피드 설정
 #template_type = 'Feed'
-template_type = 'Text'
+#template_type = 'Text'
 
-if template_type == 'Feed':
+if msg_template == 'feed':
     data = {
         'receiver_uuids': f'["{friend_id}"]',
         "template_object": json.dumps({
@@ -144,14 +149,14 @@ if template_type == 'Feed':
                 "description": description,
                 "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/330px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
                 "link": {
-                    "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                    "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                    "web_url": redirect_url,
+                    "mobile_web_url": redirect_url
                 }
             },
             "button_title": "깃헙으로 이동하기"
         })
     }
-elif template_type == 'Text':
+elif msg_template == 'text':
     data={
         'receiver_uuids': '["{}"]'.format(friend_id),
         "template_object": json.dumps({
@@ -159,8 +164,8 @@ elif template_type == 'Text':
             #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
             "text":f"{user_name}님이 {event_name}을 했어요!\n{description}",
             "link":{
-                "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                "web_url" : redirect_url,
+                "mobile_web_url" : redirect_url
             },
             "button_title": "깃헙으로 이동하기"
         })

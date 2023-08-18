@@ -46,10 +46,14 @@ commit_message = os.environ.get('COMMIT_MESSAGE')
 from_branch = os.environ.get('FROM_BRANCH')
 to_branch = os.environ.get('TO_BRANCH')
 
+# Convert UTC time to the desired timezone (e.g., Asia/Seoul)
+korea_timezone = datetime.timezone(datetime.timedelta(hours=9))  # UTC+9
+new_commit_time = commit_time.astimezone(korea_timezone)
 
 # Print the user information
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
+print("New Commit Time:", new_commit_time)
 print("Commit Message:", commit_message)
 print("From Branch:", from_branch)
 print("To Branch:", to_branch)
@@ -69,9 +73,14 @@ data = {
     "template_object" : json.dumps({ "object_type" : "feed",
                                      "content":{
                                          "title":f"{user_name}님이 {event_name}을 했어요!!",
-                                         "description": (
-                                                 f"'{commit_time}'에\n{from_branch}→{to_branch}"
-                                          ),
+                                         if event_name == 'Push':
+                                             "description":(
+                                                 f"'{commit_time}'에\n{to_branch}로 push 완료"
+                                             ),
+                                        elif event_name == 'Pull Request':
+                                             "description": (
+                                                 f"'{new_commit_time}'에\n{from_branch}→{to_branch}"
+                                              ),
                                          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
                                          "link": {
                                                 "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",

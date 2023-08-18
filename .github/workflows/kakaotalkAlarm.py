@@ -98,11 +98,9 @@ data = {
     "template_object": json.dumps({
         "object_type": "feed",
         "content": {
-            "title": f"{user_name}님의 Git 이벤트",
+            "title": f"{user_name}님 {event_name}을 했어요!!",
             "description": (
-                f"'{commit_message}' ({event_name} 요청) - {commit_time}\n"
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
-                "Vestibulum vel lacus vitae nisl pharetra volutpat."
+                f"'{commit_message}'- {commit_time}\n"
             ),
             "image_url": "https://cdn-icons-png.flaticon.com/512/25/25231.png",  # Replace with your image URL
             "link": {

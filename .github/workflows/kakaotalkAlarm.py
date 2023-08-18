@@ -100,7 +100,7 @@ data = {
     "template_object": json.dumps({
         "object_type": "feed",
         "content": {
-            "title": f"{user_name}님이 {origin_bracnh}에서 {branch_name}으로 {event_name}을 했어요!!",
+            "title": f"{user_name}님이 {origin_branch}에서 {branch_name}으로 {event_name}을 했어요!!",
             "description": (
                 f"메시지:'{commit_message}'\n시간:'{commit_time}'\n"
             ),

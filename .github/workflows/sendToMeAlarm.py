@@ -107,8 +107,17 @@ elif template_type == 'Text':
                                          "link" : {
                                                      "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
                                                      "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
-                                          }
-                                         "button_title": "깃헙으로 이동하기"
+                                                  },
+                                        "buttons": [
+                                            {
+                                                "title": "깃헙으로 이동하기",
+                                                "link": {
+                                                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                                                  "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                                                }
+                                            }
+                                          ]
+                                         
         })
     }
         

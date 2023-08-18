@@ -32,6 +32,14 @@ response = requests.post(url, data=data)
 tokens = response.json()
 print(tokens)
 
+# 추가된 부분 - 여기 부분 넣었더니 오류..
+#token_json = json.loads(tokens)
+
+access_token = tokens['refresh_token']
+
+print(access_token)
+
+
 # 카카오톡 메시지 API
 url = "https://kauth.kakao.com/oauth/token"
 data = {

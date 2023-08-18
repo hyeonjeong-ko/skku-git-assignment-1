@@ -49,7 +49,7 @@ to_branch = os.environ.get('TO_BRANCH')
 
 # Convert UTC time to the desired timezone (e.g., Asia/Seoul)
 #pull request의 경우 시차 존재
-commit_time_adjusted = commit_time_utc + timedelta(hours=9)
+commit_time_adjusted = commit_time + timedelta(hours=9)
 print(commit_time_adjusted.strftime('%Y-%m-%d %H:%M:%S'))
 
 # Print the user information

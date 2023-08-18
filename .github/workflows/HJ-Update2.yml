@@ -55,7 +55,7 @@ jobs:
           COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
           COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
           FROM_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-          TO_BRANCH=${{ github.ref }}
+          TO_BRANCH=${{ github.ref_name }}
           echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
           echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV

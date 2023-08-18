@@ -53,12 +53,21 @@ print("To Branch:", to_branch)
 
 
 data = {
-    "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{user_name} : {commit_message} -{commit_time} ●pull request {branch_name} to main sendTomeAlarm파일", # 
-                                     "link" : {
-                                                 "web_url" : "https://foss4g.tistory.com/1624",
-                                                 "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"
-                                              }
+    'receiver_uuids': f'["{friend_id}"]',
+    "template_object": json.dumps({
+        "object_type": "feed",
+        "content": {
+            "title": f"{user_name}님이 {from_branch}에서 {to_branch}으로 {event_name}을 했어요!!",
+            "description": (
+                f"메시지:'{commit_message}'\n시간:'{commit_time}'\n"
+            ),
+            "image_url": ".github/workflows/github.png",  # Replace with your image URL
+            "link": {
+                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+            }
+        },
+        "button_title": "깃헙으로 이동하기"
     })
 }
 response = requests.post(url, headers=headers, data=data)

@@ -118,7 +118,7 @@ print("To Branch:", to_branch)
 
 # 조건문을 사용하여 데이터 준비
 if event_name == 'Push':
-    description = f"{to_branch}로 push 완료\n'{commit_message}'"
+    description = f"{to_branch}(으)로 push 완료\n'{commit_message}'"
 elif event_name == 'Pull Request':
     description = f"{from_branch}→{to_branch}\n'{commit_message}'"
 
@@ -132,7 +132,7 @@ if template_type == 'Feed':
         "template_object": json.dumps({
             "object_type": "feed",
             "content": {
-                "title": f"{user_name}님이 {event_name}을 했어요!",
+                "title": f"{user_name}님이 {event_name}(을)를 했어요!",
                 "description": description,
                 "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/330px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
                 "link": {

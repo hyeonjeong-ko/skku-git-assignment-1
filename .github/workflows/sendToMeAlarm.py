@@ -5,6 +5,11 @@ import os
 
 event_name = os.environ.get('EVENT_NAME')
 merged_status = os.environ.get('MERGED_STATUS')
+send_to_function = os.environ.get('SEND_TO_FUNCTION') #이거 yml에서 분기되는거라 좀 고쳐야 할듯
+rest_api_key = os.environ.get('REST_API_KEY') #ㅇㅇ
+redirect_url = os.environ.get('REDIRECT_URI') #ㅇㅇ
+code_key = os.environ.get('CODE_KEY') #이건 어디에 쓰는 물건인고...?
+msg_template = os.environ.get('MSG_TEMPLATE') #ㅇㅇ
 
 if event_name == 'Pull Request':
     if merged_status == 'true':
@@ -23,13 +28,13 @@ data = {
     "grant_type" : "authorization_code",
     "client_id" : "152831f2d43d3d3c3b003a24ec2fa088",
     "redirect_url" : "https://localhost:3000",
-    "code" : "FSon6-E5EvlIHTsl7WKCca9dgdvVI6L2fr_gnUpcDlh77LREpaj9hTEbt8ETNPUUCXY1ZworDKcAAAGKCZyiRg"
+    "code" : rest_api_key
 }
 response = requests.post(url, data=data)
 tokens = response.json()
 print(tokens)
 
-# 추가된 부분 - 이거 넣었더니 오류 생김...
+# 추가된 부분
 
 #token_json = json.loads(tokens)
 
@@ -89,11 +94,11 @@ if event_name == 'Push':
 elif event_name == 'Pull Request':
     description = f"{from_branch}→{to_branch}\n'{commit_message}'"
 
-# 사용자 템플릿 변수에 따라 텍스트, 피드 설정
-template_type = 'Feed'
+# 사용자 템플릿 변수에 따라 텍스트, 피드 설정 - 개인 테스트용
+#template_type = 'Feed'
 #template_type = 'Text'
 
-if template_type == 'Feed':
+if msg_template == 'feed':
     data = {
         "template_object" : json.dumps({ "object_type" : "feed",
                                          "content":{
@@ -108,20 +113,20 @@ if template_type == 'Feed':
                                         "button_title": "깃헙으로 이동하기"                            
         })
     }
-elif template_type == 'Text':
+elif msg_template == 'text':
     data = {
         "template_object" : json.dumps({ "object_type" : "text",
                                          "text" : f"{user_name}님이 {event_name}을 했어요!\n{description}",
                                          "link" : {
-                                                     "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                                                     "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                                                     "web_url" : redirect_url,
+                                                     "mobile_web_url" : redirect_url
                                                   },
                                         "buttons": [
                                             {
                                                 "title": "깃헙으로 이동하기",
                                                 "link": {
-                                                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                                                  "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                                                "web_url": redirect_url,
+                                                  "mobile_web_url": redirect_url
                                                 }
                                             }
                                           ]

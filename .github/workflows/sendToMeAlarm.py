@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-from datetime import datetime, timedelta
+#from datetime import datetime, timedelta
 
 event_name = os.environ.get('EVENT_NAME')
 merged_status = os.environ.get('MERGED_STATUS')
@@ -23,7 +23,7 @@ data = {
     "grant_type" : "authorization_code",
     "client_id" : "152831f2d43d3d3c3b003a24ec2fa088", # {restapi}
     "redirect_url" : "https://localhost:3000", 
-    "code" : "bE7Sd9c-h2RX_yNyIM3T-dFmKT9KV8NLyacKnXTm1O2MaeAapMdzKng9fwgssRIaAwS-5wo9cxgAAAGKB_Z8pw" # {code}
+    "code" : "jOcZ1pVxMQPE7DwqAvLXqkMpW4S97mQJLCPnltXzHm1EtOPHkLkIS4zCsLnODTfW0RL-Vwo9cpcAAAGKCX4CuA" # {code}
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -35,7 +35,7 @@ with open("kakao_code.json", "w") as fp:
 
 url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
 headers = {
-    "Authorization": "Bearer " + "KOUxuFFG7jQdht5GwkA2Ik2qVXjk6XMMNq3cchlPCiolUgAAAYoH952N" # {access token}
+    "Authorization": "Bearer " + "rHHA5txbEeNUG2tndmSQCL2VN2RWM_Q_2mW_8M2aCinI2gAAAYoJftLU" # {access token}
 }
 
 # Get user information from environment variables
@@ -49,18 +49,18 @@ to_branch = os.environ.get('TO_BRANCH')
 
 # pull request과정에서의 시간 변수는 시차 존재
 # Commit time을 문자열에서 datetime 객체로 변환
-commit_time_datetime = datetime.strptime(commit_time, '%Y-%m-%d %H:%M:%S %z')
+#commit_time_datetime = datetime.strptime(commit_time, '%Y-%m-%d %H:%M:%S %z')
 
 # 9시간을 추가하여 새로운 datetime 객체 생성
-new_commit_time_datetime = commit_time_datetime + timedelta(hours=9)
+#new_commit_time_datetime = commit_time_datetime + timedelta(hours=9)
 
 # new_commit_time을 원하는 형식으로 변환하여 출력
-new_commit_time = new_commit_time_datetime.strftime('%Y-%m-%d %H:%M:%S')
+#new_commit_time = new_commit_time_datetime.strftime('%Y-%m-%d %H:%M:%S')
 
 # Print the user information
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
-print("New Commit Time:", new_commit_time)
+#print("New Commit Time:", new_commit_time)
 print("Commit Message:", commit_message)
 print("From Branch:", from_branch)
 print("To Branch:", to_branch)
@@ -77,24 +77,65 @@ print("To Branch:", to_branch)
 
 # 조건문을 사용하여 데이터 준비
 if event_name == 'Push':
-    description = f"'{commit_time}'에\n{to_branch}로 push 완료"
+    description = f"{to_branch}로 push 완료\n'{commit_message}'"
 elif event_name == 'Pull Request':
-    description = f"'{new_commit_time}'에\n{from_branch}→{to_branch}"
+    description = f"{from_branch}→{to_branch}\n'{commit_message}'"
 
-data = {
-    "template_object" : json.dumps({ "object_type" : "feed",
-                                     "content":{
-                                         "title":f"{user_name}님이 {event_name}을 했어요!!",
-                                         "description": description,
-                                         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
-                                         "link": {
+# 사용자 템플릿 변수에 따라 텍스트, 피드 설정
+#template_type = 'Feed'
+template_type = 'Text'
+
+if template_type == 'Feed':
+    data = {
+        "template_object" : json.dumps({ "object_type" : "feed",
+                                         "content":{
+                                             "title":f"{user_name}님이 {event_name}을 했어요!",
+                                             "description": description,
+                                             "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
+                                             "link": {
+                                                    "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                                                    "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                                              }
+                                         },
+                                        "button_title": "깃헙으로 이동하기"                            
+        })
+    }
+elif template_type == 'Text':
+    data = {
+        "template_object" : json.dumps({ "object_type" : "text",
+                                         "text" : f"{user_name}님이 {event_name}을 했어요!\n{description}",
+                                         "link" : {
+                                                     "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                                                     "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                                                  },
+                                        "buttons": [
+                                            {
+                                                "title": "깃헙으로 이동하기",
+                                                "link": {
                                                 "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                                                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
-                                          }
-                                     },
-                                    "button_title": f"message: '{commit_message}'"                            
-    })
-}
+                                                  "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                                                }
+                                            }
+                                          ]
+                                         
+        })
+    }
+        
+
+#data = {
+#    "template_object" : json.dumps({ "object_type" : "feed",
+#                                     "content":{
+#                                         "title":f"{user_name}님이 {event_name}을 했어요!!",
+#                                         "description": description,
+#                                         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
+#                                         "link": {
+#                                                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+#                                                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+#                                          }
+#                                     },
+#                                    "button_title": f"message: '{commit_message}'"                            
+#    })
+#}
 
 #data = {
 #    'receiver_uuids': f'["{friend_id}"]',

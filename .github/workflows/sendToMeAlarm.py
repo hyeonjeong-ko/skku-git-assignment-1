@@ -82,8 +82,8 @@ elif event_name == 'Pull Request':
     description = f"{from_branch}→{to_branch}\n'{commit_message}'"
 
 # 사용자 템플릿 변수에 따라 텍스트, 피드 설정
-#template_type = 'Feed'
-template_type = 'Text'
+template_type = 'Feed'
+#template_type = 'Text'
 
 if template_type == 'Feed':
     data = {

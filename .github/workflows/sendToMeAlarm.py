@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 event_name = os.environ.get('EVENT_NAME')
 merged_status = os.environ.get('MERGED_STATUS')
@@ -47,12 +47,20 @@ commit_message = os.environ.get('COMMIT_MESSAGE')
 from_branch = os.environ.get('FROM_BRANCH')
 to_branch = os.environ.get('TO_BRANCH')
 
+# pull request과정에서의 시간 변수는 시차 존재
+# Commit time을 문자열에서 datetime 객체로 변환
+commit_time_datetime = datetime.strptime(commit_time, '%Y-%m-%d %H:%M:%S %z')
 
+# 9시간을 추가하여 새로운 datetime 객체 생성
+new_commit_time_datetime = commit_time_datetime + timedelta(hours=9)
+
+# new_commit_time을 원하는 형식으로 변환하여 출력
+new_commit_time = new_commit_time_datetime.strftime('%Y-%m-%d %H:%M:%S')
 
 # Print the user information
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
-#print("New Commit Time:", new_commit_time)
+print("New Commit Time:", new_commit_time)
 print("Commit Message:", commit_message)
 print("From Branch:", from_branch)
 print("To Branch:", to_branch)
@@ -71,7 +79,7 @@ print("To Branch:", to_branch)
 if event_name == 'Push':
     description = f"'{commit_time}'에\n{to_branch}로 push 완료"
 elif event_name == 'Pull Request':
-    description = f"'{commit_time}'에\n{from_branch}→{to_branch}"
+    description = f"'{new_commit_time}'에\n{from_branch}→{to_branch}"
 
 data = {
     "template_object" : json.dumps({ "object_type" : "feed",

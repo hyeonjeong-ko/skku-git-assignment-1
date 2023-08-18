@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+from datetime import timedelta
 
 event_name = os.environ.get('EVENT_NAME')
 merged_status = os.environ.get('MERGED_STATUS')
@@ -47,13 +48,14 @@ from_branch = os.environ.get('FROM_BRANCH')
 to_branch = os.environ.get('TO_BRANCH')
 
 # Convert UTC time to the desired timezone (e.g., Asia/Seoul)
-korea_timezone = datetime.timezone(datetime.timedelta(hours=9))  # UTC+9
-new_commit_time = commit_time.astimezone(korea_timezone)
+#pull request의 경우 시차 존재
+if commit_time_adjusted = commit_time_utc + timedelta(hours=9)
+print(commit_time_adjusted.strftime('%Y-%m-%d %H:%M:%S'))
 
 # Print the user information
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
-print("New Commit Time:", new_commit_time)
+#print("New Commit Time:", new_commit_time)
 print("Commit Message:", commit_message)
 print("From Branch:", from_branch)
 print("To Branch:", to_branch)
@@ -68,19 +70,17 @@ print("To Branch:", to_branch)
 #print(f"Origin Branch: {origin_branch}")
 #print(f"Branch Name: {branch_name}")
 
+# 조건문을 사용하여 데이터 준비
+if event_name == 'Push':
+    description = f"'{commit_time}'에\n{to_branch}로 push 완료"
+elif event_name == 'Pull Request':
+    description = f"'{commit_time_adjusted.strftime('%Y-%m-%d %H:%M:%S')}'에\n{from_branch}→{to_branch}"
 
 data = {
     "template_object" : json.dumps({ "object_type" : "feed",
                                      "content":{
                                          "title":f"{user_name}님이 {event_name}을 했어요!!",
-                                         if event_name == 'Push':
-                                             "description":(
-                                                 f"'{commit_time}'에\n{to_branch}로 push 완료"
-                                             ),
-                                        elif event_name == 'Pull Request':
-                                             "description": (
-                                                 f"'{new_commit_time}'에\n{from_branch}→{to_branch}"
-                                              ),
+                                         "description": description,
                                          "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
                                          "link": {
                                                 "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",

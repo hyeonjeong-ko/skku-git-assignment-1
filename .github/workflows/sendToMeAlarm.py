@@ -30,7 +30,6 @@ tokens = response.json()
 print(tokens)
 
 # 추가된 부분
-import json
 
 #token_json = json.loads(tokens)
 

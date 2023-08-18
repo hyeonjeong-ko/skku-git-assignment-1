@@ -104,7 +104,7 @@ data = {
             "description": (
                 f"메시지:'{commit_message}'\n시간:'{commit_time}'\n"
             ),
-            "image_url": "https://cdn-icons-png.flaticon.com/512/25/25231.png",  # Replace with your image URL
+            "image_url": ".github/workflows/github.png",  # Replace with your image URL
             "link": {
                 "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
                 "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"

@@ -78,9 +78,10 @@ header = {"Authorization": 'Bearer ' + tokens["access_token"]}
 user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
-origin_branch = os.environ.get('ORIGIN_BRANCH')
-branch_name = os.environ.get('BRANCH_NAME')
-
+#origin_branch = os.environ.get('ORIGIN_BRANCH')
+#branch_name = os.environ.get('BRANCH_NAME')
+from_branch = os.environ.get('FROM_BRANCH')
+to_branch = os.environ.get('TO_BRANCH')
 #data={
 #    'receiver_uuids': '["{}"]'.format(friend_id),
 #    "template_object": json.dumps({

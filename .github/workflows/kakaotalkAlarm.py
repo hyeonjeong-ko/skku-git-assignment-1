@@ -96,24 +96,57 @@ to_branch = os.environ.get('TO_BRANCH')
 #    })
 #}
 
+#data = {
+#    'receiver_uuids': f'["{friend_id}"]',
+#    "template_object": json.dumps({
+#        "object_type": "feed",
+#        "content": {
+#            "title": f"{user_name}님이 {from_branch}에서 {to_branch}으로 {event_name}을 했어요!!",
+#            "description": (
+#                f"메시지:'{commit_message}'\n시간:'{commit_time}'\n"
+#            ),
+#            "image_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1/blob/e32442a17d7827ba59342ab9af8ff540e0e3c663/github.png",  # Replace with your image URL
+#            "link": {
+#                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+#                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+#            }
+#        },
+#        "button_title": "깃헙으로 이동하기"
+#    })
+#}
+
 data = {
     'receiver_uuids': f'["{friend_id}"]',
     "template_object": json.dumps({
-        "object_type": "feed",
-        "content": {
-            "title": f"{user_name}님이 {from_branch}에서 {to_branch}으로 {event_name}을 했어요!!",
-            "description": (
-                f"메시지:'{commit_message}'\n시간:'{commit_time}'\n"
-            ),
-            "image_url": ".github/workflows/github.png",  # Replace with your image URL
-            "link": {
-                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
-            }
+        "object_type": "list",
+        "header_title": "GitHub에 무슨 일이 일어났어요!!",
+        "header_link": {
+            "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+            "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
         },
-        "button_title": "깃헙으로 이동하기"
+        "contents": [
+            {
+                "title": f"{user_name}님이 {from_branch}에서 {to_branch}으로 {event_name}을 했어요!",
+                "description": f"메시지: '{commit_message}'\n시간: {commit_time}",
+                "image_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1/raw/main/github.png",
+                "link": {
+                    "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                    "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                }
+            }
+        ],
+        "buttons": [
+            {
+                "title": "깃헙으로 이동하기",
+                "link": {
+                    "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                    "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                }
+            }
+        ]
     })
 }
+
 print(f"메시지:'{commit_message}'\n시간:'{commit_time}'\n")
 
 response = requests.post(url, headers=header, data=data)

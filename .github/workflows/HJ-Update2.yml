@@ -70,7 +70,7 @@ jobs:
           COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
           COMMIT_MESSAGE="${{ github.event.pull_request.title }}"  # Use the pull request title
           FROM_BRANCH=${{ github.event.pull_request.head.ref }}
-          TO_BRANCH=${{ github.event.pull_request.base.ref_name }}
+          TO_BRANCH=${{ github.event.pull_request.base.ref }}
           echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
           echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV

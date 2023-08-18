@@ -1,13 +1,28 @@
 import requests
 import json
 import os
+
+event_name = os.environ.get('EVENT_NAME')
+merged_status = os.environ.get('MERGED_STATUS')
+
+if event_name == 'Pull Request':
+    if merged_status == 'true':
+        print("This is a merged Pull Request.")
+        event_name = 'Merge'
+    else:
+        print("This is an open Pull Request.")
+elif event_name == 'Push':
+    print("This is a Push event.")
+else:
+    print("Event type:", event_name)
+
 # 카카오톡 메시지 API 입니다 !!
 url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type" : "authorization_code",
     "client_id" : "152831f2d43d3d3c3b003a24ec2fa088", # {restapi}
     "redirect_url" : "https://localhost:3000", 
-    "code" : "RdowTz42p3dMCoHaq7nsuaOH__uy1ccD167oMrf2Iiut6Vs8BX86udCcrOCbJUWyguFPCQo9dGkAAAGKA0_kCg" # {code}
+    "code" : "bE7Sd9c-h2RX_yNyIM3T-dFmKT9KV8NLyacKnXTm1O2MaeAapMdzKng9fwgssRIaAwS-5wo9cxgAAAGKB_Z8pw" # {code}
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -19,42 +34,72 @@ with open("kakao_code.json", "w") as fp:
 
 url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
 headers = {
-    "Authorization": "Bearer " + "cjQ8x_-UT3hokKyVroMeaGFqT6zHmR32N8KmZ2sECiolEAAAAYoD8AMV" # {access token}
+    "Authorization": "Bearer " + "KOUxuFFG7jQdht5GwkA2Ik2qVXjk6XMMNq3cchlPCiolUgAAAYoH952N" # {access token}
 }
 
 # Get user information from environment variables
 user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
+#origin_branch = os.environ.get('ORIGIN_BRANCH')
+#branch_name = os.environ.get('BRANCH_NAME')
+from_branch = os.environ.get('FROM_BRANCH')
+to_branch = os.environ.get('TO_BRANCH')
 
 
 # Print the user information
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
 print("Commit Message:", commit_message)
+print("From Branch:", from_branch)
+print("To Branch:", to_branch)
 
 
 # 환경 변수 불러오기
-origin_branch = os.environ.get('ORIGIN_BRANCH')
-branch_name = os.environ.get('BRANCH_NAME')
+#origin_branch = os.environ.get('ORIGIN_BRANCH')
+#branch_name = os.environ.get('BRANCH_NAME')
 
 # 환경 변수 출력
-print(f"User Name: {user_name}")
-print(f"Origin Branch: {origin_branch}")
-print(f"Branch Name: {branch_name}")
-
-
+#print(f"User Name: {user_name}")
+#print(f"Origin Branch: {origin_branch}")
+#print(f"Branch Name: {branch_name}")
 
 
 data = {
-    "template_object" : json.dumps({ "object_type" : "text",
-                                     "text" : f"{user_name} : {commit_message} -{commit_time} ●pull request {branch_name} to main sendTomeAlarm파일", # 
-                                     "link" : {
-                                                 "web_url" : "https://foss4g.tistory.com/1624",
-                                                 "mobile_web_url" : "https://www.google.co.kr/search?q=drone&source=lnms&tbm=nws"
-                                              }
+    "template_object" : json.dumps({ "object_type" : "feed",
+                                     "content":{
+                                         "title":f"{user_name}님이 {from_branch}에서 {to_branch}으로 {event_name}을 했어요!!",
+                                         "description": (
+                                             f"메시지:'{commit_message}'\n시간:'{commit_time}'\n"
+                                          ),
+                                         "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
+                                         "link": {
+                                                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+                                                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                                          }
+                                     },
+                                    "button_title": "깃헙으로 이동하기"                            
     })
 }
+
+#data = {
+#    'receiver_uuids': f'["{friend_id}"]',
+#    "template_object": json.dumps({
+#        "object_type": "feed",
+#        "content": {
+#            "title": f"{user_name}님이 {from_branch}에서 {to_branch}으로 {event_name}을 했어요!!",
+#            "description": (
+#                f"메시지:'{commit_message}'\n시간:'{commit_time}'\n"
+#            ),
+#            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
+#            "link": {
+#                "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
+#                "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+#            }
+#        },
+#        "button_title": "깃헙으로 이동하기"
+#    })
+#}
 response = requests.post(url, headers=headers, data=data)
 if response.json().get('result_code') == 0:
     print('메시지를 성공적으로 보냈습니다.')

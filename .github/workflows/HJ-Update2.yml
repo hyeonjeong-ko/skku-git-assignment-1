@@ -9,6 +9,7 @@ on:
       - '*'
   push:
     branches:
+      #- '*'
       - 'sc-main'
 
 permissions:
@@ -53,9 +54,13 @@ jobs:
           USER_NAME=$(git log -1 --pretty=format:'%an')
           COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
           COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
+          FROM_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          TO_BRANCH=${{ github.ref_name }}
           echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
           echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
+          echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
+          echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
 
       - name: Set User Information
         if: github.event_name == 'pull_request'
@@ -64,9 +69,13 @@ jobs:
           USER_NAME=$(git log -1 --pretty=format:'%an')
           COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
           COMMIT_MESSAGE="${{ github.event.pull_request.title }}"  # Use the pull request title
+          FROM_BRANCH=${{ github.event.pull_request.head.ref }}
+          TO_BRANCH=${{ github.event.pull_request.base.ref }}
           echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
           echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
+          echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
+          echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
 
       - name: Read Existing Profile Content
         if: github.event_name == 'push'

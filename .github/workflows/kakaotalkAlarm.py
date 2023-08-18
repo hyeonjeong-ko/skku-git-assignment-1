@@ -78,7 +78,18 @@ header = {"Authorization": 'Bearer ' + tokens["access_token"]}
 user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
+#origin_branch = os.environ.get('ORIGIN_BRANCH')
+#branch_name = os.environ.get('BRANCH_NAME')
+from_branch = os.environ.get('FROM_BRANCH')
+to_branch = os.environ.get('TO_BRANCH')
 
+
+#print!!
+print("User Name:", user_name)
+print("Commit Time:", commit_time)
+print("Commit Message:", commit_message)
+print("From Branch:", from_branch)
+print("To Branch:", to_branch)
 #data={
 #    'receiver_uuids': '["{}"]'.format(friend_id),
 #    "template_object": json.dumps({
@@ -98,20 +109,22 @@ data = {
     "template_object": json.dumps({
         "object_type": "feed",
         "content": {
-            "title": f"{user_name}님 {event_name}을 했어요!!",
+            "title": f"{user_name}님이 {event_name}을 했어요!!",
             "description": (
-                f"'{commit_message}'- {commit_time}\n"
+                f"{commit_time}에 '{from_branch}' → '{to_branch}'" #메시지:'{commit_message}'\n시간:'{commit_time}'\n
             ),
-            "image_url": "https://cdn-icons-png.flaticon.com/512/25/25231.png",  # Replace with your image URL
+            "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/330px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
             "link": {
                 "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
                 "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
             }
         },
-        "button_title": "깃헙으로 이동하기"
+        "button_title": f"메시지:'{commit_message}'"
     })
 }
 
+
+print(f"메시지:'{commit_message}'\n시간:'{commit_time}'\n")
 
 response = requests.post(url, headers=header, data=data)
 response.status_code

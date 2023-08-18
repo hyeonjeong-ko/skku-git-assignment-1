@@ -78,6 +78,8 @@ header = {"Authorization": 'Bearer ' + tokens["access_token"]}
 user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
+origin_branch = os.environ.get('ORIGIN_BRANCH')
+branch_name = os.environ.get('BRANCH_NAME')
 
 #data={
 #    'receiver_uuids': '["{}"]'.format(friend_id),
@@ -98,7 +100,7 @@ data = {
     "template_object": json.dumps({
         "object_type": "feed",
         "content": {
-            "title": f"{user_name}님 {event_name}을 했어요!!",
+            "title": f"{user_name}님이 {origin_bracnh}에서 {branch_name}으로 {event_name}을 했어요!!",
             "description": (
                 f"메시지:'{commit_message}'\n시간:'{commit_time}'\n"
             ),

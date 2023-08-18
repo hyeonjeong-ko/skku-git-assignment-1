@@ -17,13 +17,13 @@ elif event_name == 'Push':
 else:
     print("Event type:", event_name)
 
-# 카카오톡 메시지 API 입니다 !!
+# 카카오톡 메시지 API
 url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type" : "authorization_code",
-    "client_id" : "152831f2d43d3d3c3b003a24ec2fa088", # {restapi}
-    "redirect_url" : "https://localhost:3000", 
-    "code" : "jOcZ1pVxMQPE7DwqAvLXqkMpW4S97mQJLCPnltXzHm1EtOPHkLkIS4zCsLnODTfW0RL-Vwo9cpcAAAGKCX4CuA" # {code}
+    "client_id" : "152831f2d43d3d3c3b003a24ec2fa088",
+    "redirect_url" : "https://localhost:3000",
+    "code" : "FSon6-E5EvlIHTsl7WKCca9dgdvVI6L2fr_gnUpcDlh77LREpaj9hTEbt8ETNPUUCXY1ZworDKcAAAGKCZyiRg"
 }
 response = requests.post(url, data=data)
 tokens = response.json()
@@ -44,7 +44,7 @@ with open("kakao_code.json", "w") as fp:
 
 url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
 headers = {
-    "Authorization": "Bearer " + "rHHA5txbEeNUG2tndmSQCL2VN2RWM_Q_2mW_8M2aCinI2gAAAYoJftLU" # {access token}
+    "Authorization": "Bearer " + "pdi-JBM7TDaPrdB1i6ENLG5lSKdkJR_nqBKp51xsCisMpwAAAYoJnO6P" # {access token}
 }
 
 # Get user information from environment variables

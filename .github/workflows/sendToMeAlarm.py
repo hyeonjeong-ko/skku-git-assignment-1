@@ -29,7 +29,7 @@ response = requests.post(url, data=data)
 tokens = response.json()
 print(tokens)
 
-# 추가된 부분
+# 추가된 부분 - 이거 넣었더니 오류 생김...
 
 #token_json = json.loads(tokens)
 

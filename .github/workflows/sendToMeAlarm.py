@@ -1,6 +1,21 @@
 import requests
 import json
 import os
+
+event_name = os.environ.get('EVENT_NAME')
+merged_status = os.environ.get('MERGED_STATUS')
+
+if event_name == 'Pull Request':
+    if merged_status == 'true':
+        print("This is a merged Pull Request.")
+        event_name = 'Merge'
+    else:
+        print("This is an open Pull Request.")
+elif event_name == 'Push':
+    print("This is a Push event.")
+else:
+    print("Event type:", event_name)
+
 # 카카오톡 메시지 API 입니다 !!
 url = "https://kauth.kakao.com/oauth/token"
 data = {

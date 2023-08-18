@@ -29,6 +29,15 @@ response = requests.post(url, data=data)
 tokens = response.json()
 print(tokens)
 
+# 추가된 부분
+import json
+
+#token_json = json.loads(tokens)
+
+access_token = tokens['access_token']
+
+print(access_token)
+
 # kakao_code.json 파일 저장
 with open("kakao_code.json", "w") as fp:
     json.dump(tokens, fp)

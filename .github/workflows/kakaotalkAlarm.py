@@ -111,7 +111,7 @@ data = {
         "content": {
             "title": f"{user_name}님이 {event_name}을 했어요!!",
             "description": (
-                f"{commit_time}에 '{from_branch}' → '{to_branch}'" #메시지:'{commit_message}'\n시간:'{commit_time}'\n
+                f"{commit_time}에\n '{from_branch}' → '{to_branch}'" #메시지:'{commit_message}'\n시간:'{commit_time}'\n
             ),
             "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/330px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
             "link": {
@@ -119,7 +119,7 @@ data = {
                 "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
             }
         },
-        "button_title": f"메시지:'{commit_message}'"
+        "button_title": f"message:'{commit_message}'"
     })
 }
 

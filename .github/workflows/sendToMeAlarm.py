@@ -60,7 +60,7 @@ to_branch = os.environ.get('TO_BRANCH')
 # Print the user information
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
-print("New Commit Time:", new_commit_time)
+#print("New Commit Time:", new_commit_time)
 print("Commit Message:", commit_message)
 print("From Branch:", from_branch)
 print("To Branch:", to_branch)

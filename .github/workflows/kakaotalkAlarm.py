@@ -82,6 +82,14 @@ commit_message = os.environ.get('COMMIT_MESSAGE')
 #branch_name = os.environ.get('BRANCH_NAME')
 from_branch = os.environ.get('FROM_BRANCH')
 to_branch = os.environ.get('TO_BRANCH')
+
+
+#print!!
+print("User Name:", user_name)
+print("Commit Time:", commit_time)
+print("Commit Message:", commit_message)
+print("From Branch:", from_branch)
+print("To Branch:", to_branch)
 #data={
 #    'receiver_uuids': '["{}"]'.format(friend_id),
 #    "template_object": json.dumps({

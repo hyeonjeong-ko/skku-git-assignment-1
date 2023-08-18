@@ -26,22 +26,28 @@ headers = {
 user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
+#origin_branch = os.environ.get('ORIGIN_BRANCH')
+#branch_name = os.environ.get('BRANCH_NAME')
+from_branch = os.environ.get('FROM_BRANCH')
+to_branch = os.environ.get('TO_BRANCH')
 
 
 # Print the user information
 print("User Name:", user_name)
 print("Commit Time:", commit_time)
 print("Commit Message:", commit_message)
+print("From Branch:", from_branch)
+print("To Branch:", to_branch)
 
 
 # 환경 변수 불러오기
-origin_branch = os.environ.get('ORIGIN_BRANCH')
-branch_name = os.environ.get('BRANCH_NAME')
+#origin_branch = os.environ.get('ORIGIN_BRANCH')
+#branch_name = os.environ.get('BRANCH_NAME')
 
 # 환경 변수 출력
-print(f"User Name: {user_name}")
-print(f"Origin Branch: {origin_branch}")
-print(f"Branch Name: {branch_name}")
+#print(f"User Name: {user_name}")
+#print(f"Origin Branch: {origin_branch}")
+#print(f"Branch Name: {branch_name}")
 
 
 

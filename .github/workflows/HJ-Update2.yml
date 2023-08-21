@@ -115,8 +115,6 @@ jobs:
         
 
 
-
-
       # - name: Run kakaotalkAlarm.py on pull request
       #   if: github.event_name == 'pull_request'
       #   #run: python .github/workflows/kakaotalkAlarm.py

@@ -60,3 +60,8 @@
 
 
 
+## Commit Time : '2023-08-22 04:31:38 +0900'
+- '2020311920'(이)가 merge 하였음을 기록합니다
+- Commit Message: 'Update HJ-Update2.yml 0431'
+
+

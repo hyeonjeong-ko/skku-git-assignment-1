@@ -88,16 +88,22 @@ jobs:
             echo "::set-output name=existing_content::"
           fi
 
-      - name: Update Markdown File on push
+      - name: Create New Profile Content
+        if: github.event_name == 'push'
+        id: new_content
+        run: |
+          NEW_CONTENT="## User Profile\n\n"
+          NEW_CONTENT+="### '$COMMIT_TIME'에 '$USER_NAME'님이 merge 하였음을 기록합니다\n\n"
+          NEW_CONTENT+="**Commit Message:** $COMMIT_MESSAGE\n\n"
+          NEW_CONTENT+="${{ steps.read_existing.outputs.existing_content }}\n"
+          NEW_CONTENT+="${{ steps.new_content.outputs.new_content }}\n"
+
+          echo "::set-output name=new_content::$NEW_CONTENT"
+
+      - name: Update Markdown File
         if: github.event_name == 'push'
         run: |
-          echo "## User Profile" > profile.md  # Overwrite the file with the header
-          echo "# '$COMMIT_TIME'부에'$USER_NAME'(이)가 merge 하였음을 기록합니다" >> profile.md
-          echo "" >> profile.md
-          echo "'$COMMIT_MESSAGE'" >> profile.md
-          echo "" >> profile.md
-          echo "${{ steps.read_existing.outputs.existing_content }}" >> profile.md
-          echo "${{ steps.new_content.outputs.new_content }}" >> profile.md
+          echo "${{ steps.new_content.outputs.new_content }}" > profile.md
 
       - name: Commit and Push Changes on push
         if: github.event_name == 'push'

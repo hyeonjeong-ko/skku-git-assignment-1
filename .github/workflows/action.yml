@@ -1,0 +1,47 @@
+name: My GitHub Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-hjk-test-v1:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set User Information
+      if: github.event_name == 'push'
+      id: user_info_push
+      run: |
+        USER_NAME=$(git log -1 --pretty=format:'%an')
+        COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
+        COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
+        FROM_BRANCH=$(git symbolic-ref --short HEAD)  # Get the current branch name
+        TO_BRANCH=${GITHUB_REF#refs/heads/}  # Remove the "refs/heads/" prefix from GITHUB_REF
+        echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
+        echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
+        echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
+        echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
+        echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
+      
+    - name: Run hjk-test-v1 action
+      uses: hyeonjeong-ko/packiging-test@6.8
+      with:
+        test-variable: "도커 6.8!!!!!!!"
+        send-to-function: "send_to_friends"
+        rest-api-key: "152831f2d43d3d3c3b003a24ec2fa088"
+        refresh-token: "RwJDAjQ5dtHNXRoCaCzgSnGXjSW79NZ4avxh4iD1Cj11GgAAAYoX6fuW"
+        msg-template: "feed"
+        repo-url: "https://github.com/hyeonjeong-ko/test-marketplace"
+        
+        event_name: ${{ github.event_name }}
+        MERGED_STATUS: ${{ github.event.pull_request.merged }}
+        USER_NAME: $USER_NAME
+        COMMIT_TIME: $COMMIT_TIME
+        COMMIT_MESSAGE: $COMMIT_MESSAGE
+        FROM_BRANCH: $FROM_BRANCH
+        TO_BRANCH: $TO_BRANCH

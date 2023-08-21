@@ -68,11 +68,13 @@ jobs:
         run: |
           USER_NAME=$(git log -1 --pretty=format:'%an')
           COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
+          SHORT_COMMIT_TIME=$(git log -1 --pretty=format:'%ci' | cut -d' ' -f2-3)
           COMMIT_MESSAGE="${{ github.event.pull_request.title }}"  # Use the pull request title
           FROM_BRANCH=${{ github.event.pull_request.head.ref }}
           TO_BRANCH=${{ github.event.pull_request.base.ref }}
           echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
           echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
+          echo "SHORT_COMMIT_TIME=$SHORT_COMMIT_TIME" >> $GITHUB_ENV
           echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
           echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
           echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
@@ -91,8 +93,8 @@ jobs:
       - name: Update Markdown File on push
         if: github.event_name == 'push'
         run: |
-          echo "## Commit Time : '$COMMIT_TIME'" >> profile.md
-          echo "'$USER_NAME'(이)가 merge 하였음을 기록합니다" >> profile.md
+          echo "## Commit Time : '$SHORT_COMMIT_TIME'" >> profile.md
+          echo "- '$USER_NAME'(이)가 merge 하였음을 기록합니다" >> profile.md
           echo "- Commit Message: '$COMMIT_MESSAGE'" >> profile.md
           echo "" >> profile.md
           echo "${{ steps.read_existing.outputs.existing_content }}" >> profile.md

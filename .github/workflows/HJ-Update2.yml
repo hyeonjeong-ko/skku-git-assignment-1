@@ -88,24 +88,22 @@ jobs:
             echo "::set-output name=existing_content::"
           fi
 
-      - name: Update Markdown File on push
+      - name: Create New Profile Content
         if: github.event_name == 'push'
+        id: new_content
         run: |
-          echo "# User Profile" > profile.md  # Overwrite the file with the header
-          echo "## '$COMMIT_TIME'부에'$USER_NAME'(이)가 merge 하였음을 기록합니다" >> profile.md
-          echo "'$COMMIT_MESSAGE'" >> profile.md
-          echo "" >> profile.md
-          echo "${{ steps.read_existing.outputs.existing_content }}" >> profile.md
-          echo "${{ steps.new_content.outputs.new_content }}" >> profile.md
+          NEW_CONTENT="## User Profile\n\n"
+          NEW_CONTENT+="### '$COMMIT_TIME'에 '$USER_NAME'님이 merge 하였음을 기록합니다\n\n"
+          NEW_CONTENT+="**Commit Message:** $COMMIT_MESSAGE\n\n"
+          NEW_CONTENT+="${{ steps.read_existing.outputs.existing_content }}\n"
+          NEW_CONTENT+="${{ steps.new_content.outputs.new_content }}\n"
 
-      - name: Commit and Push Changes on push
+          echo "::set-output name=new_content::$NEW_CONTENT"
+
+      - name: Update Markdown File
         if: github.event_name == 'push'
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git add profile.md
-          git commit -m "Update user profile"
-          git push
+          echo "${{ steps.new_content.outputs.new_content }}" > profile.md
       
      # - name: Run kakaotalkAlarm.py
         #if: github.event_name == 'pull_request' || github.event_name == 'push'

@@ -5,3 +5,11 @@
 
 ## User Profile
 
+::set-output name=new_content::
+## User Profile
+- User ID or Nickname: 
+- Commit Time: 
+- Commit Message: 
+
+## User Profile
+

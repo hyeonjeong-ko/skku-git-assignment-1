@@ -96,7 +96,7 @@ jobs:
           echo "- Commit Message: '$COMMIT_MESSAGE'" >> profile.md
           echo "" >> profile.md
           echo "${{ steps.read_existing.outputs.existing_content }}" >> profile.md
-          echo "${{ steps.new_content.outputs.new_content }}" >> profile.md
+         
 
       - name: Commit and Push Changes on push
         if: github.event_name == 'push'

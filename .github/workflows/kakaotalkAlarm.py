@@ -122,6 +122,8 @@ if event_name == 'Push':
 elif event_name == 'Pull Request':
     description = f"{from_branch}→{to_branch}\n'{commit_message}'"
 
+print(description)
+
 # 사용자 템플릿 변수에 따라 텍스트, 피드 설정
 #template_type = 'Feed'
 template_type = 'Text'

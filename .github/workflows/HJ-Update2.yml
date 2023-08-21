@@ -9,8 +9,8 @@ on:
       - '*'
   push:
     branches:
-      #- '*'
-      - 'sc-main'
+      - '*'
+      #- 'sc-main'
 
 permissions:
   contents: write
@@ -91,14 +91,10 @@ jobs:
       - name: Update Markdown File on push
         if: github.event_name == 'push'
         run: |
-        
-          # echo "::set-output name=new_content::" >> profile.md
-          echo "## User Profile" >> profile.md
-          echo "'$USER_NAME'가 '$COMMIT_TIME'에 '$COMMIT_MESSAGE'로 merge 하였음을 기록합니다">>profile.md  
-        
-          # echo "- User ID or Nickname: ${{ steps.user_info.outputs.user_name }}" >> profile.md
-          # echo "- Commit Time: ${{ steps.user_info.outputs.commit_time }}" >> profile.md
-          # echo "- Commit Message: ${{ steps.user_info.outputs.commit_message }}" >> profile.md
+          echo "## User Profile" > profile.md  # Overwrite the file with the header
+          echo "# '$COMMIT_TIME'부에'$USER_NAME'(이)가 merge 하였음을 기록합니다" >> profile.md
+          echo "" >> profile.md
+          echo "'$COMMIT_MESSAGE'" >> profile.md
           echo "" >> profile.md
           echo "${{ steps.read_existing.outputs.existing_content }}" >> profile.md
           echo "${{ steps.new_content.outputs.new_content }}" >> profile.md
@@ -112,9 +108,9 @@ jobs:
           git commit -m "Update user profile"
           git push
       
-      - name: Run kakaotalkAlarm.py
-        if: github.event_name == 'pull_request' || github.event_name == 'push'
-        run: python .github/workflows/sendToMeAlarm.py
+     # - name: Run kakaotalkAlarm.py
+        #if: github.event_name == 'pull_request' || github.event_name == 'push'
+        #run: python .github/workflows/sendToMeAlarm.py
         #run: python .github/workflows/kakaotalkAlarm.py
         
 

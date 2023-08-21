@@ -91,9 +91,8 @@ jobs:
       - name: Update Markdown File on push
         if: github.event_name == 'push'
         run: |
-          echo "## User Log" >> profile.md
+          echo "## Commit Time : '$COMMIT_TIME'" >> profile.md
           echo "'$USER_NAME'(이)가 merge 하였음을 기록합니다" >> profile.md
-          echo "- Commit Time : '$COMMIT_TIME'" >> profile.md
           echo "- Commit Message: '$COMMIT_MESSAGE'" >> profile.md
           echo "" >> profile.md
           echo "${{ steps.read_existing.outputs.existing_content }}" >> profile.md

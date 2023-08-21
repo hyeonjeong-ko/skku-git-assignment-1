@@ -67,7 +67,6 @@ jobs:
         id: user_info_pull_request
         run: |
           USER_NAME=$(git log -1 --pretty=format:'%an')
-          
           COMMIT_TIME=$(git log -1 --pretty=format:'%ci' | cut -d' ' -f2-3 | sed 's/.\{6\}$//')
           COMMIT_MESSAGE="${{ github.event.pull_request.title }}"  # Use the pull request title
           FROM_BRANCH=${{ github.event.pull_request.head.ref }}

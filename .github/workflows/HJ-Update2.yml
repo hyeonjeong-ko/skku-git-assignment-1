@@ -105,6 +105,7 @@ jobs:
           git add profile.md
           git commit -m "Update user profile"
           git push
+
       
       - name: Run kakaotalkAlarm.py
         if: github.event_name == 'pull_request' || github.event_name == 'push'
